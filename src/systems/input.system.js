@@ -8,6 +8,6 @@ export class PlayerInputSystem extends ECS.System {
 	}
 
 	updateEntity(entity, dt, params) {
-		console.log("player input logic");
+		//console.log("player input logic");
 	}
 }

@@ -7,6 +7,6 @@ export class Physics extends ECS.System {
 	}
 
 	updateEntity(entity, dt, params) {
-		console.log("player physics logic");
+		//console.log("player physics logic");
 	}
 }
