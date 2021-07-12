@@ -4,6 +4,7 @@ import { Sky } from "three/examples/jsm/objects/Sky";
 import * as ECS from "lofi-ecs";
 import { PlayerInputSystem } from "./systems/input.system";
 import { Assemblage } from "./assemblage";
+import { Physics } from "./systems/physics.system";
 
 let camera, scene, renderer;
 
@@ -65,6 +66,7 @@ scene.add(sun.target);
 
 const ecs = new ECS.ECS();
 ecs.addSystem(new PlayerInputSystem());
+ecs.addSystem(new Physics());
 const entity = ecs.addEntity(Assemblage.player());
 
 let dt = 0;
