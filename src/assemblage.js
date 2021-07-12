@@ -1,4 +1,5 @@
 import * as ECS from "lofi-ecs";
+
 import { PlayerInputComponent } from "./components/input.component";
 import { Transform } from "./components/transform.component";
 
