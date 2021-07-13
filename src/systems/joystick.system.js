@@ -1,6 +1,6 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
-import { InputComponent } from "../components/input2.component";
+import { InputComponent } from "../components/input.component";
 import { JoystickComponent } from "../components/joystick.component";
 
 export class JoystickSystem extends ECS.System {

@@ -1,7 +1,7 @@
 import * as ECS from "lofi-ecs";
 import { Scene } from "three";
 
-import { InputComponent } from "./components/input2.component";
+import { InputComponent } from "./components/input.component";
 import { JoystickComponent } from "./components/joystick.component";
 import { Box, SimpleModel } from "./components/model.component";
 import { Transform } from "./components/transform.component";

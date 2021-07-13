@@ -11,7 +11,7 @@ import { Physics } from "./systems/physics.system";
 import { Loading } from "./state/game_state";
 import { JoystickSystem } from "./systems/joystick.system";
 import { ViewSystem } from "./systems/view.system";
-import { InputSystem } from "./systems/input2.system";
+import { InputSystem } from "./systems/input.system";
 import { TestSystem } from "./systems/test.system";
 
 let cancel, ecs, renderer, scene, camera, stats, assets;

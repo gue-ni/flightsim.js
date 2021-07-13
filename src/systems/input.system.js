@@ -1,5 +1,5 @@
 import * as ECS from "lofi-ecs";
-import { InputComponent } from "../components/input2.component";
+import { InputComponent } from "../components/input.component";
 
 export class InputSystem extends ECS.System {
 	constructor() {
