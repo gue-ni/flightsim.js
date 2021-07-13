@@ -3,6 +3,7 @@ import { Game } from "../game";
 
 export class Pause extends State {}
 
+// TODO download assets
 export class Loading extends State {}
 
 export class GameState extends FiniteStateMachine {
