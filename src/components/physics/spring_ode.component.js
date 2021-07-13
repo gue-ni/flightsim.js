@@ -16,7 +16,6 @@ export class SpringODE extends ODE {
 	}
 
 	get position() {
-		console.log("tesrt");
 		return new THREE.Vector3(0, this.q[1], 0);
 	}
 }

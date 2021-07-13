@@ -44,6 +44,7 @@ export class Physics extends ECS.System {
 	updateEntity(entity, dt, params) {
 		let ode = entity.getComponent(SpringODE);
 		let transform = entity.getComponent(Transform).transform;
+
 		rungeKutta4(ode, dt, this.getRightHandSide);
 
 		transform.position.set(ode.position.x, ode.position.y, ode.position.z);
