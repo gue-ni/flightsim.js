@@ -1,6 +1,6 @@
 import * as ECS from "lofi-ecs";
 
-export class JoystickComponent extends ECS.Component {
+export class Joystick extends ECS.Component {
 	constructor(entity) {
 		super(entity);
 

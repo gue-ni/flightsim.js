@@ -6,15 +6,16 @@ import * as ECS from "lofi-ecs";
 
 import { State } from "./state/fsm";
 import { Assemblage } from "./assemblage";
-import { Physics } from "./systems/physics.system";
+import { FlightmodelSystem, PhysicsSystem } from "./systems/physics.system";
 
 import { Loading } from "./state/game_state";
 import { JoystickSystem } from "./systems/joystick.system";
 import { ViewSystem } from "./systems/view.system";
 import { InputSystem } from "./systems/input.system";
 import { TestSystem } from "./systems/test.system";
+import { Terrain } from "./terrain/terrain";
 
-let cancel, ecs, renderer, scene, stats, assets, view;
+let cancel, ecs, renderer, scene, stats, assets, view, terrain, sun;
 let dt,
 	then = 0;
 
@@ -81,14 +82,17 @@ function setup() {
 	scene.background = new THREE.Color(skyColor);
 
 	let sky = setup_sky();
-	let sun = setup_sun();
+	sun = setup_sun();
+
+	terrain = new Terrain(scene, { heightmap: assets.textures.heightmap.asset.image });
 
 	ecs = new ECS.ECS();
 	ecs.addSystem(new InputSystem());
 	ecs.addSystem(new JoystickSystem());
-	view = ecs.addSystem(new ViewSystem());
-	ecs.addSystem(new Physics());
+	ecs.addSystem(new PhysicsSystem());
+	ecs.addSystem(new FlightmodelSystem());
 	ecs.addSystem(new TestSystem());
+	view = ecs.addSystem(new ViewSystem());
 
 	let assemblage = new Assemblage(assets, scene);
 
@@ -104,7 +108,14 @@ function gameLoop(now) {
 
 	stats.update();
 	ecs.update(dt, {});
+	terrain.update(dt, { camera: view.camera });
 	renderer.render(scene, view.camera);
+
+	if (sun) {
+		sun.position.copy(view.camera.position);
+		sun.position.add(new THREE.Vector3(50, 75, 50));
+		sun.target.position.copy(view.camera.position);
+	}
 
 	cancel = requestAnimationFrame(gameLoop);
 }

@@ -1,16 +1,16 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 import { InputComponent } from "../components/input.component";
-import { JoystickComponent } from "../components/joystick.component";
+import { Joystick } from "../components/joystick.component";
 
 export class JoystickSystem extends ECS.System {
 	constructor() {
-		super([InputComponent, JoystickComponent]);
+		super([InputComponent, Joystick]);
 	}
 
 	updateEntity(entity, dt, params) {
 		const input = entity.getComponent(InputComponent);
-		const joystick = entity.getComponent(JoystickComponent);
+		const joystick = entity.getComponent(Joystick);
 
 		input.poll("keydown", (event) => {
 			switch (event.code) {
