@@ -80,3 +80,49 @@ export class SimpleModel extends ECS.Component {
 		this.model.parent.remove(this.model);
 	}
 }
+
+export class FalconModel extends SimpleModel {
+	constructor(entity, gltf, params) {
+		super(entity, gltf, params);
+
+		this.rudder = this.model.getObjectByName("Rudder");
+		this.cannopy = this.model.getObjectByName("Cannopy");
+		this.cannopy.material.opacity = 0.2;
+		this.cannopy.material.transparent = true;
+		this.cannopy.material.roughness = 0.0;
+
+		this.elevator = this.model.getObjectByName("Elevator");
+		this.pilot = this.model.getObjectByName("Pilot");
+
+		this.leftflap = this.model.getObjectByName("LeftFlap");
+		this.rightflap = this.model.getObjectByName("RightFlap");
+		/*
+		this.gameObject.subscribe("joystick", (input) => {
+			let m;
+
+			m = 0.5;
+			if (input.pitch) {
+				const el = -input.pitch * 0.5;
+				this.elevator.rotation.set(el, 0, 0);
+			}
+
+			m = 0.1;
+			if (input.roll) {
+				const fl = THREE.MathUtils.clamp(-Math.PI * input.roll, -m, m);
+				this.leftflap.rotation.set(fl, 0, 0);
+				this.rightflap.rotation.set(-fl, 0, 0);
+			}
+		});
+
+		this.gameObject.subscribe("cockpit", (event) => {
+			if (event.enabled) {
+				this.cannopy.visible = this.pilot.visible = false;
+			} else {
+				this.cannopy.visible = this.pilot.visible = true;
+			}
+		});
+		*/
+	}
+
+	update(dt) {}
+}

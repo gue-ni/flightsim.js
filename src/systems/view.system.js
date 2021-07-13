@@ -2,7 +2,7 @@ import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 import { InputComponent } from "../components/input.component";
 import { Transform } from "../components/transform.component";
-import { ViewComponent, OrbitView } from "../components/view.component";
+import { ViewComponent, OrbitView, CockpitView } from "../components/view.component";
 
 export class ViewSystem extends ECS.System {
 	constructor() {
@@ -10,18 +10,6 @@ export class ViewSystem extends ECS.System {
 
 		this.activeEntity = 0;
 		this.pointerdown = false;
-
-		document.addEventListener("keydown", (event) => {
-			switch (event.code) {
-				case "Digit3":
-					console.log(3);
-					break;
-
-				case "Digit4":
-					console.log(4);
-					break;
-			}
-		});
 	}
 
 	get camera() {
@@ -40,20 +28,34 @@ export class ViewSystem extends ECS.System {
 		const input = entity.getComponent(InputComponent);
 		const transform = entity.getComponent(Transform);
 
+		input.poll("keydown", (event) => {
+			switch (event.code) {
+				case "Digit3":
+					entity.getComponent(ViewComponent).views.setState(CockpitView);
+					break;
+
+				case "Digit4":
+					entity.getComponent(ViewComponent).views.setState(OrbitView);
+					break;
+			}
+		});
+
 		if (view.constructor == OrbitView) {
 			input.poll("pointermove", (event) => {
 				if (this.pointerdown) {
-					view.phi -= event.movementY * dt;
-					view.theta -= event.movementX * dt;
+					(view.phi -= event.movementY * dt), (view.theta -= event.movementX * dt);
 					view.phi = THREE.MathUtils.clamp(view.phi, 0.1, Math.PI * 0.9);
 				}
 			});
+
 			input.poll("wheel", (event) => {
 				view.radius += event.deltaY * dt * 0.1;
 			});
+
 			input.poll("pointerup", (event) => {
 				this.pointerdown = false;
 			});
+
 			input.poll("pointerdown", (event) => {
 				this.pointerdown = true;
 			});
@@ -63,6 +65,10 @@ export class ViewSystem extends ECS.System {
 			let pos = transform.worldPosition;
 			view.camera.position.addVectors(pos, vec);
 			view.camera.lookAt(pos);
+		} else if (view.constructor == CockpitView) {
+			let pos = transform.worldPosition;
+			view.camera.position.addVectors(pos, new THREE.Vector3(0, 0.1, 0));
+			view.camera.rotation.copy(transform.rotation);
 		}
 	}
 }
