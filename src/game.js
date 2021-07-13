@@ -10,8 +10,10 @@ import { Physics } from "./systems/physics.system";
 import { PlayerInputSystem } from "./systems/input.system";
 
 import { Loading } from "./state/game_state";
+import { JoystickSystem } from "./systems/joystick.system";
+import { ViewSystem } from "./systems/view.system";
 
-let cancel, ecs, renderer, scene, camera, stats;
+let cancel, ecs, renderer, scene, camera, stats, assets;
 let dt,
 	then = 0;
 
@@ -73,8 +75,9 @@ function setup() {
 	stats = new Stats();
 	document.body.appendChild(stats.dom);
 
-	camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10);
-	camera.position.z = 1;
+	camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10000);
+	camera.position.set(-3, 3, 3);
+	camera.lookAt(new THREE.Vector3());
 
 	scene = new THREE.Scene();
 	const skyColor = 0x6c5959;
@@ -85,13 +88,17 @@ function setup() {
 
 	ecs = new ECS.ECS();
 	ecs.addSystem(new PlayerInputSystem());
+	ecs.addSystem(new JoystickSystem());
+	ecs.addSystem(new ViewSystem());
 	ecs.addSystem(new Physics());
 
-	ecs.addEntity(Assemblage.player());
+	let assemblage = new Assemblage(assets, scene);
+
+	ecs.addEntity(assemblage.player(new THREE.Vector3()));
+	ecs.addEntity(assemblage.basic(new THREE.Vector3(2, 0, 0)));
 }
 
 function gameLoop(now) {
-	console.log("animation");
 	now *= 0.001;
 	dt = now - then;
 	then = now;
@@ -107,11 +114,9 @@ function gameLoop(now) {
 export class Game extends State {
 	enter(previous) {
 		if (this == previous) return;
-		console.log(previous == Loading);
 
 		if (previous.constructor == Loading) {
-			this.assets = previous.assets.assets;
-			//console.log(this.assets);
+			assets = previous.assets.assets;
 			setup();
 		}
 

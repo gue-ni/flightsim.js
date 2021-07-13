@@ -1,13 +1,34 @@
 import * as ECS from "lofi-ecs";
+import { Scene } from "three";
 
 import { PlayerInputComponent } from "./components/input.component";
+import { JoystickComponent } from "./components/joystick.component";
+import { Box, SimpleModel } from "./components/model.component";
 import { Transform } from "./components/transform.component";
 
 export class Assemblage {
-	static player() {
+	constructor(assets, scene) {
+		this.assets = assets;
+		this.scene = scene;
+	}
+
+	player(position) {
 		const entity = new ECS.Entity();
-		entity.addComponent(new Transform());
-		entity.addComponent(new PlayerInputComponent());
+		entity.addComponent(new Transform(entity, this.scene));
+		entity.getComponent(Transform).position = position;
+
+		entity.addComponent(new PlayerInputComponent(entity));
+		entity.addComponent(new JoystickComponent(entity));
+		entity.addComponent(new SimpleModel(entity, this.assets.gltf.falcon.asset));
+		return entity;
+	}
+
+	basic(position) {
+		const entity = new ECS.Entity();
+		entity.addComponent(new Transform(entity, this.scene));
+		entity.getComponent(Transform).position = position;
+
+		entity.addComponent(new Box(entity));
 		return entity;
 	}
 }
