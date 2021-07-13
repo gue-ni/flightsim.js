@@ -8,7 +8,7 @@ export class OrbitView extends State {
 
 		this.phi = Math.PI / 2;
 		this.theta = 0;
-		this.radius = 10;
+		this.radius = 5;
 
 		this.camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10000);
 	}

@@ -14,7 +14,7 @@ import { ViewSystem } from "./systems/view.system";
 import { InputSystem } from "./systems/input.system";
 import { TestSystem } from "./systems/test.system";
 
-let cancel, ecs, renderer, scene, camera, stats, assets, view;
+let cancel, ecs, renderer, scene, stats, assets, view;
 let dt,
 	then = 0;
 
@@ -76,10 +76,6 @@ function setup() {
 	stats = new Stats();
 	document.body.appendChild(stats.dom);
 
-	camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10000);
-	camera.position.set(-3, 3, 3);
-	camera.lookAt(new THREE.Vector3());
-
 	scene = new THREE.Scene();
 	const skyColor = 0x6c5959;
 	scene.background = new THREE.Color(skyColor);
@@ -88,7 +84,6 @@ function setup() {
 	let sun = setup_sun();
 
 	ecs = new ECS.ECS();
-	//ecs.addSystem(new PlayerInputSystem());
 	ecs.addSystem(new InputSystem());
 	ecs.addSystem(new JoystickSystem());
 	view = ecs.addSystem(new ViewSystem());

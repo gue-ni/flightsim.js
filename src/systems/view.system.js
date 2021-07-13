@@ -45,15 +45,12 @@ export class ViewSystem extends ECS.System {
 				if (this.pointerdown) {
 					view.phi -= event.movementY * dt;
 					view.theta -= event.movementX * dt;
-
 					view.phi = THREE.MathUtils.clamp(view.phi, 0.1, Math.PI * 0.9);
 				}
 			});
-
 			input.poll("wheel", (event) => {
 				view.radius += event.deltaY * dt * 0.1;
 			});
-
 			input.poll("pointerup", (event) => {
 				this.pointerdown = false;
 			});
