@@ -1,7 +1,9 @@
 import * as THREE from "three";
 import { Sky } from "three/examples/jsm/objects/Sky";
+import Stats from "three/examples/jsm/libs/stats.module.js";
 
 import * as ECS from "lofi-ecs";
+
 import { State } from "./state/fsm";
 import { Assemblage } from "./assemblage";
 import { Physics } from "./systems/physics.system";
@@ -9,7 +11,7 @@ import { PlayerInputSystem } from "./systems/input.system";
 
 import { Loading } from "./state/game_state";
 
-let cancel, ecs, renderer, scene, camera;
+let cancel, ecs, renderer, scene, camera, stats;
 let dt,
 	then = 0;
 
@@ -68,6 +70,9 @@ function setup() {
 	renderer.shadowMap.type = THREE.BasicShadowMap;
 	document.body.appendChild(renderer.domElement);
 
+	stats = new Stats();
+	document.body.appendChild(stats.dom);
+
 	camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10);
 	camera.position.z = 1;
 
@@ -92,8 +97,8 @@ function gameLoop(now) {
 	then = now;
 	if (dt > 0.1 || isNaN(dt)) dt = 0.1;
 
+	stats.update();
 	ecs.update(dt, {});
-
 	renderer.render(scene, camera);
 
 	cancel = requestAnimationFrame(gameLoop);
@@ -105,8 +110,8 @@ export class Game extends State {
 		console.log(previous == Loading);
 
 		if (previous.constructor == Loading) {
-			console.log("loaded");
-			// TODO get asset manager
+			this.assets = previous.assets.assets;
+			console.log(this.assets);
 			setup();
 		}
 

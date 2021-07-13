@@ -1,6 +1,9 @@
+import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+
 export class AssetManager {
 	constructor() {
-		const assets = {
+		this.assets = {
 			gltf: {
 				drone: {
 					url: "assets/objects/MQ-9v2.glb",
@@ -47,5 +50,33 @@ export class AssetManager {
 				},
 			},
 		};
+
+		this.init();
+	}
+
+	async init() {
+		const promises = [];
+
+		const load = function (loader, asset) {
+			for (const resource of Object.values(asset)) {
+				const p = new Promise((resolve, reject) => {
+					loader.load(
+						resource.url,
+						(data) => {
+							resource.asset = data;
+							resolve(resource);
+						},
+						null,
+						reject
+					);
+				});
+				promises.push(p);
+			}
+		};
+
+		load(new GLTFLoader(), this.assets.gltf);
+		//load(new THREE.AudioLoader(), this.assets.audio);
+		load(new THREE.TextureLoader(), this.assets.textures);
+		await Promise.all(promises);
 	}
 }

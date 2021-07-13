@@ -1,10 +1,16 @@
 import { FiniteStateMachine, State } from "./fsm";
 import { Game } from "../game";
+import { AssetManager } from "../asset_manager";
 
 export class Pause extends State {}
 
 // TODO download assets
-export class Loading extends State {}
+export class Loading extends State {
+	constructor() {
+		super();
+		this.assets = new AssetManager();
+	}
+}
 
 export class GameState extends FiniteStateMachine {
 	constructor() {
