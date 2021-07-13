@@ -14,7 +14,7 @@ import { ViewSystem } from "./systems/view.system";
 import { InputSystem } from "./systems/input.system";
 import { TestSystem } from "./systems/test.system";
 
-let cancel, ecs, renderer, scene, camera, stats, assets;
+let cancel, ecs, renderer, scene, camera, stats, assets, view;
 let dt,
 	then = 0;
 
@@ -91,14 +91,14 @@ function setup() {
 	//ecs.addSystem(new PlayerInputSystem());
 	ecs.addSystem(new InputSystem());
 	ecs.addSystem(new JoystickSystem());
-	ecs.addSystem(new ViewSystem());
+	view = ecs.addSystem(new ViewSystem());
 	ecs.addSystem(new Physics());
 	ecs.addSystem(new TestSystem());
 
 	let assemblage = new Assemblage(assets, scene);
 
 	ecs.addEntity(assemblage.player(new THREE.Vector3()));
-	ecs.addEntity(assemblage.basic(new THREE.Vector3(2, 0, 0)));
+	//ecs.addEntity(assemblage.basic(new THREE.Vector3(2, 0, 0)));
 }
 
 function gameLoop(now) {
@@ -109,7 +109,7 @@ function gameLoop(now) {
 
 	stats.update();
 	ecs.update(dt, {});
-	renderer.render(scene, camera);
+	renderer.render(scene, view.camera);
 
 	cancel = requestAnimationFrame(gameLoop);
 }

@@ -16,6 +16,10 @@ export class Transform extends ECS.Component {
 		this.transform.position.set(p.x, p.y, p.z);
 	}
 
+	get worldPosition() {
+		return this.transform.getWorldPosition(new THREE.Vector3());
+	}
+
 	get rotation() {
 		return this.transform.rotation;
 	}
