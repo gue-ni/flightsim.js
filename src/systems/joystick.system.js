@@ -1,24 +1,80 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
-import { PlayerInputComponent } from "../components/input.component";
+import { InputComponent } from "../components/input2.component";
 import { JoystickComponent } from "../components/joystick.component";
 
 export class JoystickSystem extends ECS.System {
 	constructor() {
-		super([PlayerInputComponent, JoystickComponent]);
+		super([InputComponent, JoystickComponent]);
 	}
 
 	updateEntity(entity, dt, params) {
-		let input = entity.getComponent(PlayerInputComponent);
-		let joystick = entity.getComponent(JoystickComponent);
+		const input = entity.getComponent(InputComponent);
+		const joystick = entity.getComponent(JoystickComponent);
 
-		joystick.yaw = this._input(input.keys.KeyQ, input.keys.KeyE, joystick.yaw, dt);
-		joystick.roll = this._input(input.keys.KeyD, input.keys.KeyA, joystick.roll, dt);
-		joystick.pitch = this._input(input.keys.KeyW, input.keys.KeyS, joystick.pitch, dt);
+		input.poll("keydown", (event) => {
+			switch (event.code) {
+				case "KeyA":
+					joystick.KeyA = true;
+					break;
 
-		if (input.keys.KeyT) {
+				case "KeyD":
+					joystick.KeyD = true;
+					break;
+
+				case "KeyW":
+					joystick.KeyW = true;
+					break;
+
+				case "KeyS":
+					joystick.KeyS = true;
+					break;
+
+				case "KeyT":
+					joystick.KeyT = true;
+					break;
+
+				case "KeyR":
+					joystick.KeyR = true;
+					break;
+			}
+		});
+
+		input.poll("keyup", (event) => {
+			switch (event.code) {
+				case "KeyA":
+					joystick.KeyA = false;
+					break;
+
+				case "KeyD":
+					joystick.KeyD = false;
+					break;
+
+				case "KeyW":
+					joystick.KeyW = false;
+					break;
+
+				case "KeyS":
+					joystick.KeyS = false;
+					break;
+
+				case "KeyT":
+					joystick.KeyT = false;
+					break;
+
+				case "KeyR":
+					joystick.KeyR = false;
+					break;
+			}
+		});
+
+		joystick.yaw = this._input(joystick.KeyQ, joystick.KeyE, joystick.yaw, dt);
+		joystick.roll = this._input(joystick.KeyD, joystick.KeyA, joystick.roll, dt);
+		joystick.pitch = this._input(joystick.KeyW, joystick.KeyS, joystick.pitch, dt);
+
+		if (joystick.KeyT) {
 			joystick.throttle += 0.5 * dt;
-		} else if (input.keys.KeyR) {
+		} else if (joystick.KeyR) {
 			joystick.throttle -= 0.5 * dt;
 		}
 

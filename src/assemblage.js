@@ -1,7 +1,6 @@
 import * as ECS from "lofi-ecs";
 import { Scene } from "three";
 
-import { PlayerInputComponent } from "./components/input.component";
 import { InputComponent } from "./components/input2.component";
 import { JoystickComponent } from "./components/joystick.component";
 import { Box, SimpleModel } from "./components/model.component";
@@ -19,9 +18,7 @@ export class Assemblage {
 		entity.addComponent(new Transform(entity, this.scene));
 		entity.getComponent(Transform).position = position;
 
-		//entity.addComponent(new PlayerInputComponent(entity));
 		entity.addComponent(new InputComponent());
-		entity.addComponent(new PlayerInputComponent(entity));
 		entity.addComponent(new JoystickComponent(entity));
 		entity.addComponent(new SimpleModel(entity, this.assets.gltf.falcon.asset));
 		entity.addComponent(new ViewComponent());

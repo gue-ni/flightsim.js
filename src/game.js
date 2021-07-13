@@ -7,7 +7,6 @@ import * as ECS from "lofi-ecs";
 import { State } from "./state/fsm";
 import { Assemblage } from "./assemblage";
 import { Physics } from "./systems/physics.system";
-import { PlayerInputSystem } from "./systems/input.system";
 
 import { Loading } from "./state/game_state";
 import { JoystickSystem } from "./systems/joystick.system";
