@@ -1,8 +1,10 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { Game } from "./game";
 
 export class AssetManager {
-	constructor() {
+	constructor(fsm) {
+		this.fsm = fsm;
 		this.assets = {
 			gltf: {
 				drone: {
@@ -52,6 +54,7 @@ export class AssetManager {
 		};
 
 		this.init();
+		console.log("after init");
 	}
 
 	async init() {
@@ -78,5 +81,7 @@ export class AssetManager {
 		//load(new THREE.AudioLoader(), this.assets.audio);
 		load(new THREE.TextureLoader(), this.assets.textures);
 		await Promise.all(promises);
+		console.log("after promises");
+		this.fsm.setState(Game);
 	}
 }

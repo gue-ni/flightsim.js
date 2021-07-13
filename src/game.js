@@ -111,7 +111,7 @@ export class Game extends State {
 
 		if (previous.constructor == Loading) {
 			this.assets = previous.assets.assets;
-			console.log(this.assets);
+			//console.log(this.assets);
 			setup();
 		}
 

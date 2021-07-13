@@ -6,9 +6,9 @@ export class Pause extends State {}
 
 // TODO download assets
 export class Loading extends State {
-	constructor() {
+	constructor(fsm) {
 		super();
-		this.assets = new AssetManager();
+		this.assets = new AssetManager(fsm);
 	}
 }
 
@@ -17,7 +17,7 @@ export class GameState extends FiniteStateMachine {
 		super();
 		this.addState(new Game());
 		this.addState(new Pause());
-		this.addState(new Loading());
+		this.addState(new Loading(this));
 		this.setState(Loading);
 
 		document.addEventListener("keydown", (e) => {
