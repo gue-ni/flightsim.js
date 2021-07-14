@@ -6,7 +6,7 @@ import * as ECS from "lofi-ecs";
 
 import { State } from "./state/fsm";
 import { Assemblage } from "./assemblage";
-import { FlightmodelSystem, PhysicsSystem } from "./systems/physics.system";
+import { AirplaneSystem, PhysicsSystem } from "./systems/physics.system";
 
 import { Loading } from "./state/game_state";
 import { JoystickSystem } from "./systems/joystick.system";
@@ -90,7 +90,7 @@ function setup() {
 	ecs.addSystem(new InputSystem());
 	ecs.addSystem(new JoystickSystem());
 	ecs.addSystem(new PhysicsSystem());
-	ecs.addSystem(new FlightmodelSystem());
+	ecs.addSystem(new AirplaneSystem());
 	ecs.addSystem(new TestSystem());
 	view = ecs.addSystem(new ViewSystem());
 
@@ -98,6 +98,8 @@ function setup() {
 
 	ecs.addEntity(assemblage.player(new THREE.Vector3()));
 	//ecs.addEntity(assemblage.basic(new THREE.Vector3(2, 0, 0)));
+
+	let entity = new ECS.Entity();
 }
 
 function gameLoop(now) {

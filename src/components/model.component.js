@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import * as ECS from "lofi-ecs";
-import { Transform } from "./transform.component";
 
 export class Box extends ECS.Component {
 	constructor(entity, params) {
@@ -34,7 +33,7 @@ export class Box extends ECS.Component {
 
 		this.model.position.copy(position);
 
-		this.entity.getComponent(Transform).transform.add(this.model);
+		this.entity.transform.add(this.model);
 	}
 
 	destroy() {
@@ -69,7 +68,7 @@ export class SimpleModel extends ECS.Component {
 			}
 		});
 
-		this.entity.getComponent(Transform).transform.add(this.model);
+		this.entity.transform.add(this.model);
 	}
 
 	destroy() {
@@ -123,6 +122,4 @@ export class FalconModel extends SimpleModel {
 		});
 		*/
 	}
-
-	update(dt) {}
 }

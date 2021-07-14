@@ -1,12 +1,11 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 import { InputComponent } from "../components/input.component";
-import { Transform } from "../components/transform.component";
 import { ViewComponent, OrbitView, CockpitView } from "../components/view.component";
 
 export class ViewSystem extends ECS.System {
 	constructor() {
-		super([Transform, ViewComponent]);
+		super([ViewComponent]);
 
 		this.activeEntity = 0;
 		this.pointerdown = false;
@@ -26,7 +25,7 @@ export class ViewSystem extends ECS.System {
 	updateEntity(entity, dt, params) {
 		const view = entity.getComponent(ViewComponent).current;
 		const input = entity.getComponent(InputComponent);
-		const transform = entity.getComponent(Transform);
+		const transform = entity.transform;
 
 		input.poll("keydown", (event) => {
 			switch (event.code) {
@@ -61,14 +60,10 @@ export class ViewSystem extends ECS.System {
 			});
 
 			let vec = new THREE.Vector3().setFromSphericalCoords(view.radius, view.phi, view.theta);
-
-			let pos = transform.worldPosition;
+			let pos = transform.getWorldPosition(new THREE.Vector3());
 			view.camera.position.addVectors(pos, vec);
 			view.camera.lookAt(pos);
 		} else if (view.constructor == CockpitView) {
-			let pos = transform.worldPosition;
-			view.camera.position.addVectors(pos, new THREE.Vector3(0, 0.1, 0));
-			view.camera.rotation.copy(transform.rotation);
 		}
 	}
 }

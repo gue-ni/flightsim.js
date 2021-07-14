@@ -4,7 +4,6 @@ import * as THREE from "three";
 import { Joystick } from "../components/joystick.component";
 import { Airplane } from "../components/physics/airplane.component";
 import { SpringODE } from "../components/physics/spring_ode.component";
-import { Transform } from "../components/transform.component";
 import { Velocity } from "../components/velocity.component";
 
 function rungeKutta4(ode, ds, getRightHandSide) {
@@ -27,12 +26,12 @@ function rungeKutta4(ode, ds, getRightHandSide) {
 
 export class PhysicsSystem extends ECS.System {
 	constructor() {
-		super([Transform, SpringODE]);
+		super([SpringODE]);
 	}
 
 	updateEntity(entity, dt, params) {
 		let ode = entity.getComponent(SpringODE);
-		let transform = entity.getComponent(Transform).transform;
+		let transform = entity.transform;
 
 		function getRightHandSide(ode, s, q, deltaQ, ds, qScale) {
 			let dq = [];
@@ -54,9 +53,9 @@ export class PhysicsSystem extends ECS.System {
 	}
 }
 
-export class FlightmodelSystem extends ECS.System {
+export class AirplaneSystem extends ECS.System {
 	constructor() {
-		super([Transform, Airplane, Velocity, Joystick]);
+		super([Airplane, Velocity, Joystick]);
 
 		this.previous_pitch = 0;
 		this.trimAlpha = -1.5;
@@ -66,7 +65,7 @@ export class FlightmodelSystem extends ECS.System {
 		let ode = entity.getComponent(Airplane);
 		let joystick = entity.getComponent(Joystick);
 		let velocity = entity.getComponent(Velocity).velocity;
-		let transform = entity.getComponent(Transform).transform;
+		let transform = entity.transform;
 
 		function getRightHandSide(ode, s, q, deltaQ, ds, qScale) {
 			let dQ = [];
@@ -82,8 +81,6 @@ export class FlightmodelSystem extends ECS.System {
 			let x = newQ[1];
 			let y = newQ[3];
 			let z = newQ[5];
-
-			//velocity.set(vx, vy, vz);
 
 			let vh = Math.sqrt(vx * vx + vy * vy);
 			let vtotal = Math.sqrt(vx * vx + vy * vy + vz * vz);
@@ -180,7 +177,6 @@ export class FlightmodelSystem extends ECS.System {
 		ode.throttle = joystick.throttle;
 		ode.bank += joystick.roll * maxRollRate * dt;
 		ode.alpha += joystick.pitch * maxPitchRate * dt;
-
 		ode.alpha = THREE.MathUtils.clamp(ode.alpha, -5, 15);
 
 		let wQ = transform.getWorldQuaternion(new THREE.Quaternion());

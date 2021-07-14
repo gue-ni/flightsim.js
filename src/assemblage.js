@@ -7,7 +7,6 @@ import { Joystick } from "./components/joystick.component";
 import { Box, FalconModel, SimpleModel } from "./components/model.component";
 import { Airplane } from "./components/physics/airplane.component";
 import { SpringODE } from "./components/physics/spring_ode.component";
-import { Transform } from "./components/transform.component";
 import { Velocity } from "./components/velocity.component";
 import { ViewComponent } from "./components/view.component";
 
@@ -18,15 +17,13 @@ export class Assemblage {
 	}
 
 	player(position) {
-		const entity = new ECS.Entity();
-		entity.addComponent(new Transform(entity, this.scene));
-		entity.getComponent(Transform).position = position;
+		const entity = new ECS.Entity(this.scene);
+		entity.transform.position.copy(position);
 
 		entity.addComponent(new InputComponent(entity));
 		//entity.addComponent(new SpringODE(entity, 1, 0.5, 50, 0.5));
-		entity.addComponent(new Airplane());
+		entity.addComponent(new Airplane(entity));
 		entity.addComponent(new Velocity(entity));
-
 		entity.addComponent(new Joystick(entity));
 		entity.addComponent(
 			new FalconModel(entity, this.assets.gltf.falcon.asset, {
@@ -38,11 +35,10 @@ export class Assemblage {
 	}
 
 	basic(position) {
-		const entity = new ECS.Entity();
+		const entity = new ECS.Entity(this.scene);
 		entity.addComponent(new Transform(entity, this.scene));
-		entity.getComponent(Transform).position = position;
-		entity.addComponent(new ViewComponent());
-
+		entity.transform.position.copy(position);
+		entity.addComponent(new ViewComponent(entity));
 		entity.addComponent(new Box(entity));
 		return entity;
 	}
