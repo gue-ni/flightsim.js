@@ -14,6 +14,8 @@ import { ViewSystem } from "./systems/view.system";
 import { InputSystem } from "./systems/input.system";
 import { TestSystem } from "./systems/test.system";
 import { Terrain } from "./terrain/terrain";
+import { CollisionSystem } from "./systems/collisions.system";
+import { HUDSystem } from "./systems/hud.system";
 
 let cancel, ecs, renderer, scene, stats, assets, view, terrain, sun;
 let dt,
@@ -88,16 +90,18 @@ function setup() {
 
 	ecs = new ECS.ECS();
 	ecs.addSystem(new InputSystem());
+	ecs.addSystem(new CollisionSystem());
 	ecs.addSystem(new JoystickSystem());
 	ecs.addSystem(new PhysicsSystem());
 	ecs.addSystem(new AirplaneSystem());
 	ecs.addSystem(new TestSystem());
+	ecs.addSystem(new HUDSystem());
 	view = ecs.addSystem(new ViewSystem());
 
 	let assemblage = new Assemblage(assets, scene);
 
 	ecs.addEntity(assemblage.player(new THREE.Vector3()));
-	//ecs.addEntity(assemblage.basic(new THREE.Vector3(2, 0, 0)));
+	ecs.addEntity(assemblage.basic(new THREE.Vector3(200, 100, 0)));
 
 	let entity = new ECS.Entity();
 }
