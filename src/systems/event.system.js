@@ -1,4 +1,5 @@
 import * as ECS from "lofi-ecs";
+
 import { EventComponent } from "../components/event.component";
 
 export class EventSystem extends ECS.System {
@@ -8,5 +9,11 @@ export class EventSystem extends ECS.System {
 
 	updateEntity(entity, dt, params) {}
 
-	updateSystem(entities, dt, params) {}
+	updateSystem(entities, dt, params) {
+		for (let entity of entities) {
+		}
+
+		for (let entity of entities) {
+		}
+	}
 }

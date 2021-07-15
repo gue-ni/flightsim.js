@@ -28,8 +28,8 @@ export class Assemblage {
 		entity.transform.position.copy(position);
 
 		entity.addComponent(new InputComponent(entity));
-		entity.addComponent(new Airplane(entity));
-		entity.addComponent(new Velocity(entity));
+		entity.addComponent(new Airplane(entity, velocity));
+		entity.addComponent(new Velocity(entity, velocity));
 		entity.addComponent(new Joystick(entity));
 		entity.addComponent(new HUD(entity));
 		entity.addComponent(new TestComponent(entity));

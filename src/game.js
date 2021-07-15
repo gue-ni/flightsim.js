@@ -104,7 +104,7 @@ function setup() {
 
 	let assemblage = new Assemblage(ecs, assets, scene);
 
-	assemblage.falcon(new THREE.Vector3(0, 100, 0));
+	assemblage.falcon(new THREE.Vector3(0, 100, 0), new THREE.Vector3(500, 0, 0));
 	assemblage.basic(new THREE.Vector3(200, 100, 0));
 }
 

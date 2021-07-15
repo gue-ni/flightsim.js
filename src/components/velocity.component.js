@@ -2,9 +2,9 @@ import * as THREE from "three";
 import * as ECS from "lofi-ecs";
 
 export class Velocity extends ECS.Component {
-	constructor(entity) {
+	constructor(entity, velocity) {
 		super(entity);
-		this.velocity = new THREE.Vector3();
+		this.velocity = velocity || new THREE.Vector3();
 	}
 
 	get speed() {
