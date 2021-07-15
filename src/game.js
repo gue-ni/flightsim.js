@@ -17,6 +17,9 @@ import { TestSystem } from "./systems/test.system";
 import { Terrain } from "./terrain/terrain";
 import { CollisionSystem } from "./systems/collisions.system";
 import { HUDSystem } from "./systems/hud.system";
+import { Missile } from "./components/physics/missile.component";
+import { MissileSystem } from "./systems/missile.system";
+import { ControlSystem } from "./systems/control.system";
 
 let cancel, ecs, renderer, scene, stats, assets, view, terrain, sun;
 let dt,
@@ -74,7 +77,6 @@ function setup() {
 	renderer.physicallyCorrectLights = true;
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.BasicShadowMap;
-	//document.body.appendChild(renderer.domElement);
 
 	stats = new Stats();
 	document.body.appendChild(stats.dom);
@@ -83,7 +85,7 @@ function setup() {
 	const skyColor = 0x6c5959;
 	scene.background = new THREE.Color(skyColor);
 
-	let sky = setup_sky();
+	setup_sky();
 	sun = setup_sun();
 
 	terrain = new Terrain(scene, { heightmap: assets.textures.heightmap.asset.image });
@@ -96,14 +98,14 @@ function setup() {
 	ecs.addSystem(new AirplaneSystem());
 	ecs.addSystem(new TestSystem());
 	ecs.addSystem(new HUDSystem());
+	ecs.addSystem(new MissileSystem());
+	ecs.addSystem(new ControlSystem());
 	view = ecs.addSystem(new ViewSystem());
 
 	let assemblage = new Assemblage(ecs, assets, scene);
 
-	assemblage.player(new THREE.Vector3());
+	assemblage.falcon(new THREE.Vector3(0, 100, 0));
 	assemblage.basic(new THREE.Vector3(200, 100, 0));
-
-	let entity = new ECS.Entity();
 }
 
 function gameLoop(now) {

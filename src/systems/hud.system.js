@@ -31,7 +31,7 @@ export class HUDSystem extends ECS.System {
 		ctx.save();
 		ctx.font = "25px Arial";
 		ctx.fillStyle = style;
-		ctx.fillText(`${velocity.speed.toFixed(1)}`, 40, 40);
+		ctx.fillText(`${(velocity.speed * 10.0).toFixed(1)}`, 40, 40);
 		ctx.restore();
 
 		// altitude

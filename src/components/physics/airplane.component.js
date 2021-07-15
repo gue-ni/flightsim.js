@@ -3,13 +3,12 @@ import * as THREE from "three";
 import { ODE } from "./ode.component";
 
 export class Airplane extends ODE {
-	constructor(entity) {
+	constructor(entity, velocity = new THREE.Vector3(500, 0, 0)) {
 		super(entity, 6);
 
 		this.s = 0;
 
-		let velocity = new THREE.Vector3(100, 0, 0);
-		let position = new THREE.Vector3(0, 1000, 0);
+		let position = this.entity.position;
 
 		this.q[0] = velocity.x;
 		this.q[2] = velocity.z;

@@ -1,13 +1,16 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 import { Scene } from "three";
+import { Hardpoints } from "./components/aircraft/hardpoints.component";
 import { Collider } from "./components/collider.component";
 import { HUD } from "./components/hud.component";
 
 import { InputComponent } from "./components/input.component";
 import { Joystick } from "./components/joystick.component";
+import { MissileControl } from "./components/missile_control.component";
 import { Box, FalconModel, SimpleModel } from "./components/model.component";
 import { Airplane } from "./components/physics/airplane.component";
+import { Missile } from "./components/physics/missile.component";
 import { SpringODE } from "./components/physics/spring_ode.component";
 import { TestComponent } from "./components/test.component";
 import { Velocity } from "./components/velocity.component";
@@ -20,12 +23,11 @@ export class Assemblage {
 		this.scene = scene;
 	}
 
-	player(position) {
+	falcon(position, velocity) {
 		const entity = new ECS.Entity(this.scene);
 		entity.transform.position.copy(position);
 
 		entity.addComponent(new InputComponent(entity));
-		//entity.addComponent(new SpringODE(entity, 1, 0.5, 50, 0.5));
 		entity.addComponent(new Airplane(entity));
 		entity.addComponent(new Velocity(entity));
 		entity.addComponent(new Joystick(entity));
@@ -35,12 +37,21 @@ export class Assemblage {
 		entity.addComponent(new FalconModel(entity, this.assets.gltf.falcon.asset));
 		entity.addComponent(new ViewComponent(entity));
 
+		let hardpoints = entity.addComponent(new Hardpoints(entity));
+		hardpoints.h1.add(this.missile(entity.transform));
+		hardpoints.h2.add(this.missile(entity.transform));
+		hardpoints.h9.add(this.missile(entity.transform));
+		hardpoints.h8.add(this.missile(entity.transform));
+
 		this.ecs.addEntity(entity);
 		return entity;
 	}
 
 	missile(parent) {
 		const entity = new ECS.Entity(parent);
+		entity.addComponent(new InputComponent(entity));
+		entity.addComponent(new MissileControl(entity));
+		entity.addComponent(new SimpleModel(entity, this.assets.gltf.amraam.asset));
 		this.ecs.addEntity(entity);
 		return entity;
 	}

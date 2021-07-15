@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lofi-ecs": "^1.0.27",
+    "lofi-ecs": "^1.0.30",
     "three": "^0.130.1"
   },
   "devDependencies": {
