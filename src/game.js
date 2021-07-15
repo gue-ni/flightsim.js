@@ -6,7 +6,8 @@ import * as ECS from "lofi-ecs";
 
 import { State } from "./state/fsm";
 import { Assemblage } from "./assemblage";
-import { AirplaneSystem, PhysicsSystem } from "./systems/physics.system";
+import { SpringSystem } from "./systems/physics.system";
+import { AirplaneSystem } from "./systems/airplane.system";
 
 import { Loading } from "./state/game_state";
 import { JoystickSystem } from "./systems/joystick.system";
@@ -57,24 +58,23 @@ function setup_sky() {
 	};
 
 	const pmremGenerator = new THREE.PMREMGenerator(renderer);
-
 	const phi = THREE.MathUtils.degToRad(90 - parameters.elevation);
 	const theta = THREE.MathUtils.degToRad(parameters.azimuth);
 	sunVec.setFromSphericalCoords(1, phi, theta);
 	sky.material.uniforms["sunPosition"].value.copy(sunVec);
 	scene.environment = pmremGenerator.fromScene(sky).texture;
-
 	return sky;
 }
 
 function setup() {
-	renderer = new THREE.WebGLRenderer({ antialias: false, logarithmicDepthBuffer: true });
+	let canvas = document.querySelector("#canvas");
+	renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, logarithmicDepthBuffer: true });
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	renderer.toneMapping = THREE.ACESFilmicToneMapping;
 	renderer.physicallyCorrectLights = true;
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.BasicShadowMap;
-	document.body.appendChild(renderer.domElement);
+	//document.body.appendChild(renderer.domElement);
 
 	stats = new Stats();
 	document.body.appendChild(stats.dom);
@@ -92,7 +92,7 @@ function setup() {
 	ecs.addSystem(new InputSystem());
 	ecs.addSystem(new CollisionSystem());
 	ecs.addSystem(new JoystickSystem());
-	ecs.addSystem(new PhysicsSystem());
+	ecs.addSystem(new SpringSystem());
 	ecs.addSystem(new AirplaneSystem());
 	ecs.addSystem(new TestSystem());
 	ecs.addSystem(new HUDSystem());

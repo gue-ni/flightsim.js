@@ -51,11 +51,11 @@ export class ViewSystem extends ECS.System {
 				view.radius += event.deltaY * dt * 0.1;
 			});
 
-			input.poll("pointerup", (event) => {
+			input.poll("pointerup", () => {
 				this.pointerdown = false;
 			});
 
-			input.poll("pointerdown", (event) => {
+			input.poll("pointerdown", () => {
 				this.pointerdown = true;
 			});
 
@@ -64,6 +64,24 @@ export class ViewSystem extends ECS.System {
 			view.camera.position.addVectors(pos, vec);
 			view.camera.lookAt(pos);
 		} else if (view.constructor == CockpitView) {
+			input.poll("pointerdown", () => {
+				this.pointerdown = true;
+			});
+
+			input.poll("pointerup", () => {
+				this.pointerdown = false;
+				view._rotation.copy(view._default);
+			});
+
+			input.poll("pointermove", (event) => {
+				if (this.pointerdown) {
+					console.log("test");
+					view._rotation.x -= event.movementY * dt;
+					view._rotation.y -= event.movementX * dt;
+				}
+			});
+
+			view.camera.rotation.copy(view._rotation);
 		}
 	}
 }

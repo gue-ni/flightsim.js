@@ -44,7 +44,7 @@ export class Airplane extends ODE {
 		this.bank = 0;
 		this.alpha = 0;
 		this.throttle = 0.5;
-		this.thrust = 10000;
+		this.thrust = 50000;
 
 		this.yaw = 0;
 		this.roll = 0;

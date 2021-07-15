@@ -6,4 +6,8 @@ export class Velocity extends ECS.Component {
 		super(entity);
 		this.velocity = new THREE.Vector3();
 	}
+
+	get speed() {
+		return this.velocity.length();
+	}
 }
