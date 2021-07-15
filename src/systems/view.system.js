@@ -15,8 +15,7 @@ export class ViewSystem extends ECS.System {
 		return this.activeEntity.getComponent(ViewComponent).camera;
 	}
 
-	updateSystem(ecs, dt, params) {
-		let entities = ecs.entities.filter((entity) => this.componentMatch(entity));
+	updateSystem(entities, dt, params) {
 		this.activeEntity = entities[0];
 		this.updateEntity(this.activeEntity, dt, params);
 		//this.updateEntity(entities[this.activeEntity], dt, params);

@@ -14,7 +14,8 @@ import { Velocity } from "./components/velocity.component";
 import { ViewComponent } from "./components/view.component";
 
 export class Assemblage {
-	constructor(assets, scene) {
+	constructor(ecs, assets, scene) {
+		this.ecs = ecs;
 		this.assets = assets;
 		this.scene = scene;
 	}
@@ -31,12 +32,16 @@ export class Assemblage {
 		entity.addComponent(new HUD(entity));
 		entity.addComponent(new TestComponent(entity));
 		entity.addComponent(new Collider(entity));
-		entity.addComponent(
-			new FalconModel(entity, this.assets.gltf.falcon.asset, {
-				rotation: new THREE.Vector3(0, Math.PI * -0.5, 0),
-			})
-		);
+		entity.addComponent(new FalconModel(entity, this.assets.gltf.falcon.asset));
 		entity.addComponent(new ViewComponent(entity));
+
+		this.ecs.addEntity(entity);
+		return entity;
+	}
+
+	missile(parent) {
+		const entity = new ECS.Entity(parent);
+		this.ecs.addEntity(entity);
 		return entity;
 	}
 
@@ -46,6 +51,7 @@ export class Assemblage {
 		entity.addComponent(new ViewComponent(entity));
 		entity.addComponent(new Collider(entity, new THREE.Vector3(10, 10, 10)));
 		entity.addComponent(new Box(entity, { size: new THREE.Vector3(10, 10, 10) }));
+		this.ecs.addEntity(entity);
 		return entity;
 	}
 }

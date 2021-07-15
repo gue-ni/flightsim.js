@@ -31,8 +31,7 @@ export class CollisionSystem extends ECS.System {
 		}
 	}
 
-	updateSystem(ecs, dt, params) {
-		const entities = ecs.entities.filter((entity) => this.componentMatch(entity));
+	updateSystem(entities, dt, params) {
 		for (const entity of entities) {
 			this.updateEntity(entity, dt, params);
 		}

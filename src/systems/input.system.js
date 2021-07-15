@@ -41,8 +41,8 @@ export class InputSystem extends ECS.System {
 		input.events = Object.assign({}, this.eventQueue);
 	}
 
-	updateSystem(ecs, dt, params) {
-		for (let entity of ecs.entities.filter((entity) => this.componentMatch(entity))) {
+	updateSystem(entities, dt, params) {
+		for (let entity of entities) {
 			this.updateEntity(entity, dt, params);
 		}
 		this.eventQueue = {};

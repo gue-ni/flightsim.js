@@ -98,10 +98,10 @@ function setup() {
 	ecs.addSystem(new HUDSystem());
 	view = ecs.addSystem(new ViewSystem());
 
-	let assemblage = new Assemblage(assets, scene);
+	let assemblage = new Assemblage(ecs, assets, scene);
 
-	ecs.addEntity(assemblage.player(new THREE.Vector3()));
-	ecs.addEntity(assemblage.basic(new THREE.Vector3(200, 100, 0)));
+	assemblage.player(new THREE.Vector3());
+	assemblage.basic(new THREE.Vector3(200, 100, 0));
 
 	let entity = new ECS.Entity();
 }
