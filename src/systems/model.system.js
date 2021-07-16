@@ -14,8 +14,10 @@ export class ModelSystem extends ECS.System {
 
 		if (view.constructor == CockpitView) {
 			model.pilot.visible = false;
+			model.cannopy.visible = false;
 		} else {
 			model.pilot.visible = true;
+			model.cannopy.visible = true;
 		}
 	}
 }

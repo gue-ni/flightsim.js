@@ -19,10 +19,10 @@ export class CockpitView extends State {
 		this.entity = entity;
 
 		this.camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10000);
-		this.camera.position.set(0.37, 0.085, 0);
-		//this.camera.position.set(0.383, 0.085, 0);
+		//this.camera.position.set(0.37, 0.085, 0);
+		this.camera.position.set(0.36, 0.085, 0);
 
-		this.camera.zoom = 1.2;
+		this.camera.zoom = 1.5;
 		this.camera.updateProjectionMatrix();
 
 		let a = 100;
