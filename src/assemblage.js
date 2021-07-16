@@ -3,6 +3,7 @@ import * as THREE from "three";
 import { Scene } from "three";
 import { Hardpoints } from "./components/aircraft/hardpoints.component";
 import { Collider } from "./components/collider.component";
+import { EventComponent } from "./components/event.component";
 import { HUD } from "./components/hud.component";
 
 import { InputComponent } from "./components/input.component";
@@ -28,6 +29,7 @@ export class Assemblage {
 		entity.transform.position.copy(position);
 
 		entity.addComponent(new InputComponent(entity));
+		entity.addComponent(new EventComponent(entity));
 		entity.addComponent(new Airplane(entity, velocity));
 		entity.addComponent(new Velocity(entity, velocity));
 		entity.addComponent(new Joystick(entity));

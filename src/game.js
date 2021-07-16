@@ -20,6 +20,8 @@ import { HUDSystem } from "./systems/hud.system";
 import { Missile } from "./components/physics/missile.component";
 import { MissileSystem } from "./systems/missile.system";
 import { ControlSystem } from "./systems/control.system";
+import { EventSystem } from "./systems/event.system";
+import { Test2System } from "./systems/test2.system";
 
 let cancel, ecs, renderer, scene, stats, assets, view, terrain, sun;
 let dt,
@@ -92,11 +94,13 @@ function setup() {
 
 	ecs = new ECS.ECS();
 	ecs.addSystem(new InputSystem());
+	ecs.addSystem(new EventSystem());
 	ecs.addSystem(new CollisionSystem());
 	ecs.addSystem(new JoystickSystem());
 	ecs.addSystem(new SpringSystem());
 	ecs.addSystem(new AirplaneSystem());
 	ecs.addSystem(new TestSystem());
+	ecs.addSystem(new Test2System());
 	ecs.addSystem(new HUDSystem());
 	ecs.addSystem(new MissileSystem());
 	ecs.addSystem(new ControlSystem());

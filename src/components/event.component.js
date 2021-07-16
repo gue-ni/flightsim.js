@@ -5,4 +5,14 @@ export class EventComponent extends ECS.Component {
 		super(entity);
 		this.events = {};
 	}
+
+	post(event, data) {
+		this.events[event] = data;
+	}
+
+	poll(event, callback) {
+		if (this.events[event]) {
+			callback(this.events[event]);
+		}
+	}
 }
