@@ -27,7 +27,7 @@ export class Pause extends ScreenState {
 export class Loading extends ScreenState {
 	constructor(fsm) {
 		super(fsm, "#loading-screen");
-		this.fsm.assetManager = new AssetManager(() => this.fsm.setState(Game));
+		this.fsm.assetManager = new AssetManager(() => this.fsm.setState(Splash));
 	}
 
 	enter(previous) {
