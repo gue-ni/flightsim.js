@@ -84,6 +84,10 @@ function setup() {
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.BasicShadowMap;
 
+	window.addEventListener("resize", () => {
+		renderer.setSize(window.innerWidth, window.innerHeight);
+	});
+
 	stats = new Stats();
 	document.body.appendChild(stats.dom);
 
