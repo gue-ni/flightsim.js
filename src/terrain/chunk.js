@@ -115,9 +115,7 @@ export class Chunk {
 		geometry.setAttribute("color", new THREE.BufferAttribute(new Float32Array(count * 3), 3));
 		const colors = geometry.attributes.color;
 
-		let color = new THREE.Color("red");
-
-		let rock = new THREE.Color(0xbea981);
+		let rock = new THREE.Color(0x7d745d);
 		let voliage = new THREE.Color(0x848659);
 
 		for (let i = 0; i < count; i++) {

@@ -59,7 +59,7 @@ function setup_sky() {
 	skyUniforms["turbidity"].value = 10;
 	skyUniforms["rayleigh"].value = 2;
 	skyUniforms["mieCoefficient"].value = 0.005;
-	skyUniforms["mieDirectionalG"].value = 0.8;
+	skyUniforms["mieDirectionalG"].value = 0.1;
 
 	const parameters = {
 		elevation: 2,
@@ -79,7 +79,7 @@ function setup() {
 	let canvas = document.querySelector("#canvas");
 	renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, logarithmicDepthBuffer: true });
 	renderer.setSize(window.innerWidth, window.innerHeight);
-	renderer.toneMapping = THREE.ACESFilmicToneMapping;
+	//renderer.toneMapping = THREE.ACESFilmicToneMapping;
 	renderer.physicallyCorrectLights = true;
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.BasicShadowMap;
@@ -116,7 +116,7 @@ function setup() {
 
 	let assemblage = new Assemblage(ecs, assets, scene);
 
-	assemblage.falcon(new THREE.Vector3(0, 400, 0), new THREE.Vector3(500, 0, 0));
+	assemblage.falcon(new THREE.Vector3(0, 4000, 0), new THREE.Vector3(500, 0, 0));
 	assemblage.basic(new THREE.Vector3(200, 100, 0));
 }
 
