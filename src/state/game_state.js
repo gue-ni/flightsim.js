@@ -11,12 +11,10 @@ class ScreenState extends State {
 
 	enter(previous) {
 		this.screen.style.display = "block";
-		console.log(`ent ${this.constructor.name}`);
 	}
 
 	exit(next) {
 		this.screen.style.display = "none";
-		console.log(`ex ${this.constructor.name}`);
 	}
 }
 
@@ -31,6 +29,11 @@ export class Loading extends ScreenState {
 		super(fsm, "#loading-screen");
 		this.fsm.assetManager = new AssetManager(() => this.fsm.setState(Splash));
 	}
+
+	enter(previous) {
+		this.screen.style.display = "block";
+		document.body.style.backgroundColor = "black";
+	}
 }
 
 export class Splash extends ScreenState {
@@ -40,6 +43,12 @@ export class Splash extends ScreenState {
 		this.button.addEventListener("click", () => {
 			this.fsm.setState(Game);
 		});
+	}
+
+	enter(previous) {
+		this.screen.style.display = "block";
+		document.body.style.backgroundImage = "url('./assets/images/falcon.png')";
+		document.body.style.backgroundPosition = "center";
 	}
 }
 

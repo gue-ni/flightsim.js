@@ -1,7 +1,5 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { Game } from "./game";
-import { Splash } from "./state/game_state";
 
 export class AssetManager {
 	constructor(oncomplete) {
@@ -80,6 +78,8 @@ export class AssetManager {
 		//load(new THREE.AudioLoader(), this.assets.audio);
 		load(new THREE.TextureLoader(), this.assets.textures);
 		await Promise.all(promises);
+
+		await new Promise((resolve) => setTimeout(resolve, 1000));
 
 		oncomplete();
 	}

@@ -10,26 +10,25 @@
 	<body>
 		<canvas id="canvas" width="100vw" height="100vh"></canvas>
 
-		<div id="loading-screen" class="gui" style="left: 50vw; top: 50vh">
-			<div style="position: relative; left: -50%">
-				<span>Loading...</span>
+		<div id="loading-screen" class="gui" style="left: 50vw; top: 50vh; display: none">
+			<div class="loading-screen" style="position: relative; left: -50%">
 				<h1>Loading...</h1>
 			</div>
 		</div>
 
-		<div id="splash-screen" , class="gui" style="left: 50vw; top: 40vh">
-			<div style="position: relative; left: -50%">
+		<div id="splash-screen" , class="gui" style="left: 50vw; top: 70vh">
+			<div class="splash-screen" style="position: relative; left: -50%">
 				<h1>FLIGHTSIM</h1>
 				<h2>ready for takeoff</h2>
 				<button id="play">PLAY</button>
 			</div>
 		</div>
 
-		<div id="game-screen" class="gui" style="left: 50vw; top: 10vh">
+		<div id="game-screen" class="gui" style="left: 50vw; top: 10vh; display: none">
 			<span>Game</span>
 		</div>
 
-		<div id="pause-screen" class="gui" style="left: 50vw; top: 10vh">
+		<div id="pause-screen" class="gui" style="left: 50vw; top: 10vh; display: none">
 			<span>paused</span>
 		</div>
 

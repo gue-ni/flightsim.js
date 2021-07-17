@@ -138,7 +138,6 @@ export class Game extends State {
 	constructor(fsm) {
 		super();
 		this.fsm = fsm;
-		console.log("fsm", this.fsm);
 	}
 
 	enter(previous) {
