@@ -4,11 +4,11 @@ import { Scene } from "three";
 import { Hardpoints } from "./components/aircraft/hardpoints.component";
 import { Collider } from "./components/collider.component";
 import { EventComponent } from "./components/event.component";
-import { HUD } from "./components/hud.component";
+import { HUD } from "./components/aircraft/hud.component";
 
 import { InputComponent as Input } from "./components/input.component";
 import { Joystick } from "./components/joystick.component";
-import { MissileControl } from "./components/missile_control.component";
+import { MissileControl } from "./components/weapons/missile_control.component";
 import { Box, FalconModel, SimpleModel } from "./components/model.component";
 import { Airplane } from "./components/physics/airplane.component";
 import { Missile } from "./components/physics/missile.component";

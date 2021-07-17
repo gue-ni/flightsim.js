@@ -9,4 +9,5 @@ body {
 
 .gui {
 	position: absolute;
+	display: none;
 }

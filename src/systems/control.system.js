@@ -1,6 +1,6 @@
 import * as ECS from "lofi-ecs";
 import { InputComponent } from "../components/input.component";
-import { MissileControl } from "../components/missile_control.component";
+import { MissileControl } from "../components/weapons/missile_control.component";
 
 import { Missile } from "../components/physics/missile.component";
 

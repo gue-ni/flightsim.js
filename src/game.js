@@ -9,7 +9,7 @@ import { Assemblage } from "./assemblage";
 import { SpringSystem } from "./systems/physics.system";
 import { AirplaneSystem } from "./systems/airplane.system";
 
-import { Loading } from "./state/game_state";
+import { Loading, Splash } from "./state/game_state";
 import { JoystickSystem } from "./systems/joystick.system";
 import { ViewSystem } from "./systems/view.system";
 import { InputSystem } from "./systems/input.system";
@@ -135,11 +135,17 @@ function gameLoop(now) {
 }
 
 export class Game extends State {
+	constructor(fsm) {
+		super();
+		this.fsm = fsm;
+		console.log("fsm", this.fsm);
+	}
+
 	enter(previous) {
 		if (this == previous) return;
 
-		if (previous.constructor == Loading) {
-			assets = previous.assets.assets;
+		if (previous.constructor == Splash) {
+			assets = this.fsm.assetManager.assets;
 			setup();
 		}
 

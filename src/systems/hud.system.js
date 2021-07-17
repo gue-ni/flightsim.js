@@ -1,5 +1,5 @@
 import * as ECS from "lofi-ecs";
-import { HUD } from "../components/hud.component";
+import { HUD } from "../components/aircraft/hud.component";
 import { Velocity } from "../components/velocity.component";
 import { Airplane } from "../components/physics/airplane.component";
 
