@@ -1,6 +1,6 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
-import { InputComponent } from "../components/input.component";
+import { Input } from "../components/input.component";
 import { ViewComponent, OrbitView, CockpitView } from "../components/view.component";
 
 export class ViewSystem extends ECS.System {
@@ -23,7 +23,7 @@ export class ViewSystem extends ECS.System {
 
 	updateEntity(entity, dt, params) {
 		const view = entity.getComponent(ViewComponent).current;
-		const input = entity.getComponent(InputComponent);
+		const input = entity.getComponent(Input);
 		const transform = entity.transform;
 
 		input.poll("keydown", (event) => {

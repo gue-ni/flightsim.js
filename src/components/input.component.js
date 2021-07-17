@@ -1,6 +1,6 @@
 import * as ECS from "lofi-ecs";
 
-export class InputComponent extends ECS.Component {
+export class Input extends ECS.Component {
 	constructor(entity) {
 		super(entity);
 		this.events = {};

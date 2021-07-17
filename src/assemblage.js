@@ -6,7 +6,7 @@ import { Collider } from "./components/collider.component";
 import { EventComponent } from "./components/event.component";
 import { HUD } from "./components/aircraft/hud.component";
 
-import { InputComponent as Input } from "./components/input.component";
+import { Input as Input } from "./components/input.component";
 import { Joystick } from "./components/aircraft/joystick.component";
 import { MissileControl } from "./components/weapons/missile_control.component";
 import { Box, FalconModel, SimpleModel } from "./components/model.component";
@@ -17,6 +17,7 @@ import { TestComponent as Test } from "./components/test.component";
 import { Velocity } from "./components/velocity.component";
 import { ViewComponent as View } from "./components/view.component";
 import { Afterburner } from "./components/particles/afterburner.component";
+import { TrailComponent } from "./components/particles/trail.component";
 
 export class Assemblage {
 	constructor(ecs, assets, scene) {
@@ -31,6 +32,7 @@ export class Assemblage {
 
 		entity.addComponent(new Input(entity));
 		entity.addComponent(new EventComponent(entity));
+		entity.addComponent(new FalconModel(entity, this.assets.gltf.falcon.asset));
 		entity.addComponent(new Airplane(entity, velocity));
 		entity.addComponent(new Velocity(entity, velocity));
 		entity.addComponent(new Joystick(entity));
@@ -38,7 +40,6 @@ export class Assemblage {
 		entity.addComponent(new Test(entity));
 		entity.addComponent(new Afterburner(entity));
 		entity.addComponent(new Collider(entity));
-		entity.addComponent(new FalconModel(entity, this.assets.gltf.falcon.asset));
 		entity.addComponent(new View(entity));
 
 		let hardpoints = entity.addComponent(new Hardpoints(entity));

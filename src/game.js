@@ -7,9 +7,9 @@ import * as ECS from "lofi-ecs";
 import { State } from "./state/fsm";
 import { Assemblage } from "./assemblage";
 import { SpringSystem } from "./systems/physics/physics.system";
-import { AirplaneSystem } from "./systems/aircraft/airplane.system";
+import { AirplaneSystem } from "./systems/physics/airplane.system";
 
-import { Splash } from "./state/game_state";
+import { Loading, Splash } from "./state/game_state";
 import { JoystickSystem } from "./systems/aircraft/joystick.system";
 import { ViewSystem } from "./systems/view.system";
 import { InputSystem } from "./systems/input.system";
@@ -22,7 +22,10 @@ import { ControlSystem } from "./systems/control.system";
 import { EventSystem } from "./systems/event.system";
 import { Test2System } from "./systems/test2.system";
 import { ModelSystem } from "./systems/model.system";
-import { AfterburnerSystem } from "./systems/aircraft/afterburner.system";
+import { AfterburnerSystem } from "./systems/particles/afterburner.system";
+import { TrailSystem } from "./systems/particles/trail.system";
+import { MissileControl } from "./components/weapons/missile_control.component";
+import { StoresManagmentSystem } from "./systems/sms.system";
 
 let cancel, ecs, renderer, scene, stats, assets, view, terrain, sun;
 let dt,
@@ -102,7 +105,9 @@ function setup() {
 	ecs.addSystem(new AirplaneSystem());
 	ecs.addSystem(new TestSystem());
 	ecs.addSystem(new ModelSystem());
+	ecs.addSystem(new StoresManagmentSystem());
 	ecs.addSystem(new AfterburnerSystem());
+	ecs.addSystem(new TrailSystem());
 	ecs.addSystem(new Test2System());
 	ecs.addSystem(new HUDSystem());
 	ecs.addSystem(new MissileSystem());
@@ -111,7 +116,7 @@ function setup() {
 
 	let assemblage = new Assemblage(ecs, assets, scene);
 
-	assemblage.falcon(new THREE.Vector3(0, 100, 0), new THREE.Vector3(500, 0, 0));
+	assemblage.falcon(new THREE.Vector3(0, 400, 0), new THREE.Vector3(500, 0, 0));
 	assemblage.basic(new THREE.Vector3(200, 100, 0));
 }
 
@@ -144,7 +149,7 @@ export class Game extends State {
 	enter(previous) {
 		if (this == previous) return;
 
-		if (previous.constructor == Splash) {
+		if (previous.constructor == Splash || previous.constructor == Loading) {
 			assets = this.fsm.assetManager.assets;
 			setup();
 		}

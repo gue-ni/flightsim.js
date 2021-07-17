@@ -9,6 +9,7 @@ export class Airplane extends ODE {
 		this.s = 0;
 
 		let position = this.entity.position;
+		console.log(velocity, position);
 
 		this.q[0] = velocity.x;
 		this.q[2] = velocity.z;

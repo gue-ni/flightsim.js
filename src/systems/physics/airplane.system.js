@@ -5,7 +5,7 @@ import { Joystick } from "../../components/aircraft/joystick.component";
 import { Airplane } from "../../components/physics/airplane.component";
 import { SpringODE } from "../../components/physics/spring_ode.component";
 import { Velocity } from "../../components/velocity.component";
-import { RungeKutta } from "../physics/physics.system";
+import { RungeKutta } from "./physics.system";
 
 export class AirplaneSystem extends ECS.System {
 	constructor() {
@@ -20,6 +20,8 @@ export class AirplaneSystem extends ECS.System {
 		let joystick = entity.getComponent(Joystick);
 		let velocity = entity.getComponent(Velocity).velocity;
 		let transform = entity.transform;
+
+		//console.log("airplane", entity.position);
 
 		function getRightHandSide(ode, s, q, deltaQ, ds, qScale) {
 			let dQ = [];

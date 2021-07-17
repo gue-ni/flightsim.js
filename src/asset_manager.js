@@ -79,7 +79,7 @@ export class AssetManager {
 		load(new THREE.TextureLoader(), this.assets.textures);
 		await Promise.all(promises);
 
-		await new Promise((resolve) => setTimeout(resolve, 1000));
+		//await new Promise((resolve) => setTimeout(resolve, 1000));
 
 		oncomplete();
 	}

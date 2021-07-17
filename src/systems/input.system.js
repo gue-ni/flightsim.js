@@ -1,9 +1,9 @@
 import * as ECS from "lofi-ecs";
-import { InputComponent } from "../components/input.component";
+import { Input } from "../components/input.component";
 
 export class InputSystem extends ECS.System {
 	constructor() {
-		super([InputComponent]);
+		super([Input]);
 
 		this.eventQueue = {};
 
@@ -37,7 +37,7 @@ export class InputSystem extends ECS.System {
 	}
 
 	updateEntity(entity, dt, params) {
-		let input = entity.getComponent(InputComponent);
+		let input = entity.getComponent(Input);
 		input.events = Object.assign({}, this.eventQueue);
 	}
 

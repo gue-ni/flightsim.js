@@ -1,6 +1,6 @@
 import * as ECS from "lofi-ecs";
 import { EventComponent } from "../components/event.component";
-import { InputComponent } from "../components/input.component";
+import { Input } from "../components/input.component";
 
 export class Test2System extends ECS.System {
 	constructor() {
