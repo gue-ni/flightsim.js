@@ -46,7 +46,7 @@ export class MissileSystem extends ECS.System {
 			let thrust = ode.burntime > 0 ? ode.thrust : 0;
 
 			const cd = 0.5;
-			let area = 0.25 * Math.PI * ode.rocketDiameter * ode.rocketDiameter;
+			let area = 0.25 * Math.PI * ode.diameter * ode.diameter;
 			let drag = 0.5 * cd * density * vtotal * vtotal * area;
 
 			let cosRoll = Math.cos(0);
@@ -82,8 +82,6 @@ export class MissileSystem extends ECS.System {
 
 			const a = thrust - drag;
 			const b = 0.5 * cl * density * vtotal * vtotal * ode.wingArea * joystick.yaw;
-			//const b = 0.5 * cl * density * vtotal * vtotal * ode.wingArea * ode.rudder;
-			//const c = 0.5 * cl * density * vtotal * vtotal * ode.wingArea * ode.elevator;
 			const c = 0.5 * cl * density * vtotal * vtotal * ode.wingArea * joystick.pitch;
 
 			let Fx =
@@ -119,5 +117,9 @@ export class MissileSystem extends ECS.System {
 
 		velocity.copy(ode.velocity);
 		velocity.multiplyScalar(0.1);
+
+		if (ode.burntime > 0) {
+			ode.burntime -= dt;
+		}
 	}
 }
