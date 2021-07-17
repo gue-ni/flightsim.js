@@ -22,6 +22,7 @@ import { ControlSystem } from "./systems/control.system";
 import { EventSystem } from "./systems/event.system";
 import { Test2System } from "./systems/test2.system";
 import { ModelSystem } from "./systems/model.system";
+import { AfterburnerSystem } from "./systems/aircraft/afterburner.system";
 
 let cancel, ecs, renderer, scene, stats, assets, view, terrain, sun;
 let dt,
@@ -101,6 +102,7 @@ function setup() {
 	ecs.addSystem(new AirplaneSystem());
 	ecs.addSystem(new TestSystem());
 	ecs.addSystem(new ModelSystem());
+	ecs.addSystem(new AfterburnerSystem());
 	ecs.addSystem(new Test2System());
 	ecs.addSystem(new HUDSystem());
 	ecs.addSystem(new MissileSystem());

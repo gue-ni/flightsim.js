@@ -7,7 +7,7 @@ import { EventComponent } from "./components/event.component";
 import { HUD } from "./components/aircraft/hud.component";
 
 import { InputComponent as Input } from "./components/input.component";
-import { Joystick } from "./components/joystick.component";
+import { Joystick } from "./components/aircraft/joystick.component";
 import { MissileControl } from "./components/weapons/missile_control.component";
 import { Box, FalconModel, SimpleModel } from "./components/model.component";
 import { Airplane } from "./components/physics/airplane.component";

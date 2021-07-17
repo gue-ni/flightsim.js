@@ -2,7 +2,7 @@ import * as THREE from "three";
 import * as ECS from "lofi-ecs";
 import { FalconModel } from "../components/model.component";
 import { CockpitView, ViewComponent } from "../components/view.component";
-import { Joystick } from "../components/joystick.component";
+import { Joystick } from "../components/aircraft/joystick.component";
 
 export class ModelSystem extends ECS.System {
 	constructor() {

@@ -2,13 +2,13 @@ import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 
 class Fire {
-	constructor(radius, height, opacity, color = 0xff0000) {
+	constructor(radius, length, opacity, color = 0xff0000) {
 		const texture = new THREE.TextureLoader().load("assets/textures/alpha.png");
 		texture.rotation = Math.PI / 2;
 
-		const geometry = new THREE.CylinderGeometry(radius * 0.75, radius, height, 10);
+		const geometry = new THREE.CylinderGeometry(radius * 0.75, radius, length, 10);
 		geometry.rotateZ(Math.PI / 2);
-		geometry.translate(-height / 2, 0, 0);
+		geometry.translate(-length / 2, 0, 0);
 
 		const sideMaterial = new THREE.MeshBasicMaterial({
 			alphaMap: texture,
@@ -44,16 +44,22 @@ export class Afterburner extends ECS.Component {
 		super(entity);
 		this._muzzlePosition = new THREE.Vector3(-0.75, 0, 0);
 
-		const radius = 0.02;
-		const height = 0.3;
-
-		this.inside = new Fire(0.03, 0.3, 1.0, "orange");
-		this.outside = new Fire(0.04, 0.5, 0.5, 0x5d6b97);
+		this.inside = new Fire(0.03, 0.2, 1.0, "orange");
+		this.outside = new Fire(0.04, 0.3, 0.5, 0x5d6b97);
 
 		this.inside.mesh.position.copy(this._muzzlePosition);
 		this.outside.mesh.position.copy(this._muzzlePosition);
 		this.entity.transform.add(this.inside.mesh);
 		this.entity.transform.add(this.outside.mesh);
+
+		const circle = new THREE.Mesh(
+			new THREE.CircleGeometry(0.03, 8),
+			new THREE.MeshBasicMaterial({ color: "orange", side: THREE.DoubleSide })
+		);
+
+		circle.position.copy(this._muzzlePosition);
+		circle.rotateY(Math.PI / 2);
+		this.entity.transform.add(circle);
 	}
 
 	destroy() {

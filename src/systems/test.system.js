@@ -1,4 +1,5 @@
 import * as ECS from "lofi-ecs";
+import * as THREE from "three";
 import { EventComponent } from "../components/event.component";
 import { InputComponent } from "../components/input.component";
 

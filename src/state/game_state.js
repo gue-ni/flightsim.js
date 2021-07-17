@@ -61,15 +61,14 @@ export class GameState extends FiniteStateMachine {
 		this.addState(new Splash(this));
 		this.setState(Loading);
 
-		document.addEventListener("keydown", (e) => {
-			switch (e.code) {
-				case "Digit1":
-					// console.log(1);
-					this.setState(Game);
-					break;
-				case "Digit2":
-					// console.log(2);
-					this.setState(Pause);
+		document.addEventListener("keydown", (event) => {
+			switch (event.code) {
+				case "KeyP":
+					if (this.current.constructor == Pause) {
+						this.setState(Game);
+					} else if (this.current.constructor == Game) {
+						this.setState(Pause);
+					}
 					break;
 			}
 		});
