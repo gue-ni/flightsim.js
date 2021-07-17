@@ -9,8 +9,8 @@ export class OrbitView extends State {
 		this.theta = 0;
 		this.radius = 2;
 		this.phi = Math.PI / 2;
-		this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
 
+		this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
 		window.addEventListener("resize", () => {
 			this.camera.aspect = window.innerWidth / window.innerHeight;
 			this.camera.updateProjectionMatrix();
