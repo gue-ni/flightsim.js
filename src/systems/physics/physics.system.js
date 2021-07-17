@@ -1,10 +1,10 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 
-import { Joystick } from "../components/joystick.component";
-import { Airplane } from "../components/physics/airplane.component";
-import { SpringODE } from "../components/physics/spring_ode.component";
-import { Velocity } from "../components/velocity.component";
+import { Joystick } from "../../components/aircraft/joystick.component";
+import { Airplane } from "../../components/physics/airplane.component";
+import { SpringODE } from "../../components/physics/spring_ode.component";
+import { Velocity } from "../../components/velocity.component";
 
 export class RungeKutta {
 	static rungeKutta4(ode, ds, getRightHandSide) {

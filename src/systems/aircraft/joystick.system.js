@@ -1,15 +1,15 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
-import { InputComponent } from "../components/input.component";
-import { Joystick } from "../components/joystick.component";
+import { Input } from "../../components/input.component";
+import { Joystick } from "../../components/aircraft/joystick.component";
 
 export class JoystickSystem extends ECS.System {
 	constructor() {
-		super([InputComponent, Joystick]);
+		super([Input, Joystick]);
 	}
 
 	updateEntity(entity, dt, params) {
-		const input = entity.getComponent(InputComponent);
+		const input = entity.getComponent(Input);
 		const joystick = entity.getComponent(Joystick);
 
 		input.poll("keydown", (event) => {
@@ -36,6 +36,14 @@ export class JoystickSystem extends ECS.System {
 
 				case "KeyR":
 					joystick.KeyR = true;
+					break;
+
+				case "KeyQ":
+					joystick.KeyQ = true;
+					break;
+
+				case "KeyE":
+					joystick.KeyE = true;
 					break;
 			}
 		});
@@ -64,6 +72,14 @@ export class JoystickSystem extends ECS.System {
 
 				case "KeyR":
 					joystick.KeyR = false;
+					break;
+
+				case "KeyQ":
+					joystick.KeyQ = false;
+					break;
+
+				case "KeyE":
+					joystick.KeyE = false;
 					break;
 			}
 		});

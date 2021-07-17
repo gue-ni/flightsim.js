@@ -1,15 +1,16 @@
 import * as ECS from "lofi-ecs";
+import * as THREE from "three";
 import { EventComponent } from "../components/event.component";
-import { InputComponent } from "../components/input.component";
+import { Input } from "../components/input.component";
 
 export class TestSystem extends ECS.System {
 	constructor() {
-		super([InputComponent, EventComponent]);
+		super([Input, EventComponent]);
 		this.c = 0;
 	}
 
 	updateEntity(entity, dt, params) {
-		const input = entity.getComponent(InputComponent);
+		const input = entity.getComponent(Input);
 		const events = entity.getComponent(EventComponent);
 
 		input.poll("keydown", (event) => {

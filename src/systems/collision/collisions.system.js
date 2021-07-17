@@ -1,7 +1,7 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 
-import { Collider } from "../components/collider.component";
+import { Collider } from "../../components/collider.component";
 
 export class CollisionSystem extends ECS.System {
 	constructor() {
