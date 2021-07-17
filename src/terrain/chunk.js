@@ -57,8 +57,8 @@ export class Chunk {
         */
 
 		material = new THREE.MeshStandardMaterial({
-			color: color3,
-			//vertexColors: true,
+			//color: color3,
+			vertexColors: true,
 			wireframe: false,
 			side: THREE.DoubleSide,
 			flatShading: true,
@@ -71,7 +71,7 @@ export class Chunk {
 		this.buildChunk(heightmap, offset);
 		this.buildSkirts();
 		this.buildUVs();
-		//this.buildColor();
+		this.buildColor();
 
 		this._plane.position.set(offset.x, 0, offset.y);
 		this._plane.rotation.x = Math.PI * -0.5;
@@ -80,16 +80,15 @@ export class Chunk {
 	}
 
 	buildChunk(heightmap, offset) {
-		let vertices = this._plane.geometry.attributes.position.array;
+		const positions = this._plane.geometry.attributes.position;
 
-		for (let i = 0; i < vertices.length; i = i + 3) {
-			const x = vertices[i] + offset.x;
-			const y = -vertices[i + 1] + offset.y;
+		for (let i = 0; i < positions.count; i++) {
+			const x = positions.getX(i) + offset.x;
+			const y = -positions.getY(i) + offset.y;
 			let h = heightmap.get(x, y) * 3;
-			vertices[i + 2] = h;
+			positions.setZ(i, h);
 		}
 
-		this._plane.geometry.attributes.position.needsUpdate = true;
 		this._plane.geometry.computeVertexNormals();
 	}
 
@@ -109,8 +108,28 @@ export class Chunk {
 	}
 
 	buildColor() {
-		let color = this._plane.geometry.attributes;
-		console.log(color);
+		let geometry = this._plane.geometry;
+		const positions = geometry.attributes.position;
+		const count = positions.count;
+
+		geometry.setAttribute("color", new THREE.BufferAttribute(new Float32Array(count * 3), 3));
+		const colors = geometry.attributes.color;
+
+		let color = new THREE.Color("red");
+
+		let rock = new THREE.Color(0xbea981);
+		let voliage = new THREE.Color(0x848659);
+
+		for (let i = 0; i < count; i++) {
+			let h = positions.getZ(i);
+
+			if (h > 100) {
+				colors.setXYZ(i, rock.r, rock.g, rock.b);
+			} else {
+				colors.setXYZ(i, voliage.r, voliage.g, voliage.b);
+			}
+		}
+		this._plane.geometry.attributes.color.needsUpdate = true;
 	}
 
 	buildUVs() {
