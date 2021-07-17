@@ -6,19 +6,18 @@ import * as ECS from "lofi-ecs";
 
 import { State } from "./state/fsm";
 import { Assemblage } from "./assemblage";
-import { SpringSystem } from "./systems/physics.system";
-import { AirplaneSystem } from "./systems/airplane.system";
+import { SpringSystem } from "./systems/physics/physics.system";
+import { AirplaneSystem } from "./systems/aircraft/airplane.system";
 
-import { Loading, Splash } from "./state/game_state";
-import { JoystickSystem } from "./systems/joystick.system";
+import { Splash } from "./state/game_state";
+import { JoystickSystem } from "./systems/aircraft/joystick.system";
 import { ViewSystem } from "./systems/view.system";
 import { InputSystem } from "./systems/input.system";
 import { TestSystem } from "./systems/test.system";
 import { Terrain } from "./terrain/terrain";
-import { CollisionSystem } from "./systems/collisions.system";
-import { HUDSystem } from "./systems/hud.system";
-import { Missile } from "./components/physics/missile.component";
-import { MissileSystem } from "./systems/missile.system";
+import { CollisionSystem } from "./systems/collision/collisions.system";
+import { HUDSystem } from "./systems/aircraft/hud.system";
+import { MissileSystem } from "./systems/physics/missile.system";
 import { ControlSystem } from "./systems/control.system";
 import { EventSystem } from "./systems/event.system";
 import { Test2System } from "./systems/test2.system";

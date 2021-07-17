@@ -1,11 +1,11 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 
-import { Joystick } from "../components/joystick.component";
-import { Airplane } from "../components/physics/airplane.component";
-import { SpringODE } from "../components/physics/spring_ode.component";
-import { Velocity } from "../components/velocity.component";
-import { RungeKutta } from "./physics.system";
+import { Joystick } from "../../components/joystick.component";
+import { Airplane } from "../../components/physics/airplane.component";
+import { SpringODE } from "../../components/physics/spring_ode.component";
+import { Velocity } from "../../components/velocity.component";
+import { RungeKutta } from "../physics/physics.system";
 
 export class AirplaneSystem extends ECS.System {
 	constructor() {

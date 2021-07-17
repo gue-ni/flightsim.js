@@ -16,6 +16,7 @@ import { SpringODE } from "./components/physics/spring_ode.component";
 import { TestComponent as Test } from "./components/test.component";
 import { Velocity } from "./components/velocity.component";
 import { ViewComponent as View } from "./components/view.component";
+import { Afterburner } from "./components/particles/afterburner.component";
 
 export class Assemblage {
 	constructor(ecs, assets, scene) {
@@ -35,6 +36,7 @@ export class Assemblage {
 		entity.addComponent(new Joystick(entity));
 		entity.addComponent(new HUD(entity));
 		entity.addComponent(new Test(entity));
+		entity.addComponent(new Afterburner(entity));
 		entity.addComponent(new Collider(entity));
 		entity.addComponent(new FalconModel(entity, this.assets.gltf.falcon.asset));
 		entity.addComponent(new View(entity));
