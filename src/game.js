@@ -79,7 +79,6 @@ function setup() {
 	let canvas = document.querySelector("#canvas");
 	renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, logarithmicDepthBuffer: true });
 	renderer.setSize(window.innerWidth, window.innerHeight);
-	//renderer.toneMapping = THREE.ACESFilmicToneMapping;
 	renderer.physicallyCorrectLights = true;
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.BasicShadowMap;
