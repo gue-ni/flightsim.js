@@ -1,16 +1,16 @@
 import * as THREE from "three";
 import * as ECS from "lofi-ecs";
 import { FalconModel } from "../components/model.component";
-import { CockpitView, ViewComponent } from "../components/view.component";
+import { CockpitView, View } from "../components/view.component";
 import { Joystick } from "../components/aircraft/joystick.component";
 
 export class ModelSystem extends ECS.System {
 	constructor() {
-		super([FalconModel, ViewComponent, Joystick]);
+		super([FalconModel, View, Joystick]);
 	}
 
 	updateEntity(entity, dt, params) {
-		const view = entity.getComponent(ViewComponent).current;
+		const view = entity.getComponent(View).current;
 		const model = entity.getComponent(FalconModel);
 		const joystick = entity.getComponent(Joystick);
 

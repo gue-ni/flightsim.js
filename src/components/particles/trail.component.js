@@ -1,7 +1,7 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 
-export class TrailComponent extends ECS.Component {
+export class Trail extends ECS.Component {
 	constructor(entity, thickness = 0.08, color = 0xb2b2b2) {
 		super(entity);
 

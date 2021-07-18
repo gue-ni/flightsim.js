@@ -1,14 +1,14 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
-import { TrailComponent } from "../../components/particles/trail.component";
+import { Trail } from "../../components/particles/trail.component";
 
 export class TrailSystem extends ECS.System {
 	constructor() {
-		super([TrailComponent]);
+		super([Trail]);
 	}
 
 	updateEntity(entity, dt, params) {
-		let trail = entity.getComponent(TrailComponent);
+		let trail = entity.getComponent(Trail);
 
 		function setVert(v1, i, v) {
 			v1[i * 3 + 0] = v.x;

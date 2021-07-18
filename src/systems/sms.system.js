@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { Hardpoints } from "../components/aircraft/hardpoints.component";
 import { Joystick } from "../components/aircraft/joystick.component";
 import { Input } from "../components/input.component";
-import { TrailComponent } from "../components/particles/trail.component";
+import { Trail } from "../components/particles/trail.component";
 import { Airplane } from "../components/physics/airplane.component";
 import { Missile } from "../components/physics/missile.component";
 import { Velocity } from "../components/velocity.component";
@@ -40,7 +40,7 @@ export class StoresManagmentSystem extends ECS.System {
 
 					weapon.addComponent(new Missile(weapon, v));
 					weapon.addComponent(new Velocity(weapon, v));
-					weapon.addComponent(new TrailComponent(weapon));
+					weapon.addComponent(new Trail(weapon));
 					weapon.addComponent(new Joystick(weapon));
 
 					break;

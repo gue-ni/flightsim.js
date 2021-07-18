@@ -15,9 +15,9 @@ import { Missile } from "./components/physics/missile.component";
 import { SpringODE } from "./components/physics/spring_ode.component";
 import { TestComponent as Test } from "./components/test.component";
 import { Velocity } from "./components/velocity.component";
-import { ViewComponent as View } from "./components/view.component";
+import { View as View } from "./components/view.component";
 import { Afterburner } from "./components/particles/afterburner.component";
-import { TrailComponent } from "./components/particles/trail.component";
+import { Trail } from "./components/particles/trail.component";
 
 export class Assemblage {
 	constructor(ecs, assets, scene) {
@@ -34,15 +34,13 @@ export class Assemblage {
 		entity.addComponent(new EventComponent(entity));
 		entity.addComponent(new FalconModel(entity, this.assets.gltf.falcon.asset));
 		entity.addComponent(new Airplane(entity, velocity));
-		//entity.addComponent(new Missile(entity, velocity));
 		entity.addComponent(new Velocity(entity, velocity));
 		entity.addComponent(new Joystick(entity));
 		entity.addComponent(new HUD(entity));
-		entity.addComponent(new Test(entity));
-		entity.addComponent(new TrailComponent(entity));
 		entity.addComponent(new Afterburner(entity));
 		entity.addComponent(new Collider(entity));
 		entity.addComponent(new View(entity));
+		//entity.addComponent(new Test(entity));
 
 		let hardpoints = entity.addComponent(new Hardpoints(entity));
 		hardpoints.h1.add(this.missile(entity.transform));

@@ -18,10 +18,6 @@ export class MissileSystem extends ECS.System {
 		let velocity = entity.getComponent(Velocity).velocity;
 		let transform = entity.transform;
 
-		//console.log("missile", entity.position);
-
-		console.log(entity, joystick.yaw, joystick.pitch);
-
 		function getRightHandSide(ode, s, q, deltaQ, ds, qScale) {
 			let dQ = [];
 			let newQ = [];

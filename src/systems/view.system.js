@@ -1,18 +1,18 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 import { Input } from "../components/input.component";
-import { ViewComponent, OrbitView, CockpitView } from "../components/view.component";
+import { View, OrbitView, CockpitView } from "../components/view.component";
 
 export class ViewSystem extends ECS.System {
 	constructor() {
-		super([ViewComponent]);
+		super([View]);
 
 		this.activeEntity = 0;
 		this.pointerdown = false;
 	}
 
 	get camera() {
-		return this.activeEntity.getComponent(ViewComponent).camera;
+		return this.activeEntity.getComponent(View).camera;
 	}
 
 	updateSystem(entities, dt, params) {
@@ -22,18 +22,18 @@ export class ViewSystem extends ECS.System {
 	}
 
 	updateEntity(entity, dt, params) {
-		const view = entity.getComponent(ViewComponent).current;
+		const view = entity.getComponent(View).current;
 		const input = entity.getComponent(Input);
 		const transform = entity.transform;
 
 		input.poll("keydown", (event) => {
 			switch (event.code) {
 				case "Digit3":
-					entity.getComponent(ViewComponent).views.setState(CockpitView);
+					entity.getComponent(View).views.setState(CockpitView);
 					break;
 
 				case "Digit4":
-					entity.getComponent(ViewComponent).views.setState(OrbitView);
+					entity.getComponent(View).views.setState(OrbitView);
 					break;
 			}
 		});
