@@ -8,7 +8,7 @@ import { HUD } from "./components/aircraft/hud.component";
 
 import { Input as Input } from "./components/input.component";
 import { Joystick } from "./components/aircraft/joystick.component";
-import { MissileControl } from "./components/weapons/missile_control.component";
+import { Guidance } from "./components/weapons/guidance.component";
 import { Box, FalconModel, SimpleModel } from "./components/model.component";
 import { Airplane } from "./components/physics/airplane.component";
 import { Missile } from "./components/physics/missile.component";
@@ -56,8 +56,7 @@ export class Assemblage {
 
 	missile(parent) {
 		const entity = new ECS.Entity(parent);
-		entity.addComponent(new Input(entity));
-		entity.addComponent(new MissileControl(entity));
+		entity.addComponent(new Guidance(entity));
 		entity.addComponent(new SimpleModel(entity, this.assets.gltf.amraam.asset));
 		this.ecs.addEntity(entity);
 		return entity;

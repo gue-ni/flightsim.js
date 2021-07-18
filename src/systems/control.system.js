@@ -1,12 +1,12 @@
 import * as ECS from "lofi-ecs";
 import { Input } from "../components/input.component";
-import { MissileControl } from "../components/weapons/missile_control.component";
+import { Guidance } from "../components/weapons/guidance.component";
 
 import { Missile } from "../components/physics/missile.component";
 
 export class ControlSystem extends ECS.System {
 	constructor() {
-		super([MissileControl, Input]);
+		super([Guidance, Input]);
 	}
 
 	updateEntity(entity, dt, params) {

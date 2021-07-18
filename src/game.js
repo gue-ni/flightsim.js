@@ -24,7 +24,7 @@ import { Test2System } from "./systems/test2.system";
 import { ModelSystem } from "./systems/model.system";
 import { AfterburnerSystem } from "./systems/particles/afterburner.system";
 import { TrailSystem } from "./systems/particles/trail.system";
-import { MissileControl } from "./components/weapons/missile_control.component";
+import { Guidance } from "./components/weapons/guidance.component";
 import { StoresManagmentSystem } from "./systems/sms.system";
 
 let cancel, ecs, renderer, scene, stats, assets, view, terrain, sun;
