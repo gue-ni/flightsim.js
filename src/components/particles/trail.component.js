@@ -6,12 +6,10 @@ export class TrailComponent extends ECS.Component {
 		super(entity);
 
 		this.active = true;
-
 		this.length = 150;
 		this.popped = 0;
 		this.trailWidth = thickness;
 		this.intervall = 0.01;
-
 		this._time = 0;
 
 		this.geometry1 = new THREE.PlaneGeometry(this.length, 1, this.length, 1);
@@ -24,7 +22,8 @@ export class TrailComponent extends ECS.Component {
 
 		this.tail = new Array(this.length + 1);
 		for (let i = 0; i < this.tail.length; i++) {
-			this.tail[i] = { position: this.entity.transform.position.clone() };
+			this.tail[i] = { position: this.entity.position.clone() };
+			//this.tail[i] = { position: new THREE.Vector3() };
 		}
 
 		const texture = new THREE.TextureLoader().load("assets/textures/alpha.png");
@@ -33,7 +32,6 @@ export class TrailComponent extends ECS.Component {
 			color: color,
 			side: THREE.DoubleSide,
 			wireframe: false,
-			//opacity: 0.5,
 			transparent: true,
 			alphaMap: texture,
 			blending: THREE.NormalBlending,
@@ -48,7 +46,5 @@ export class TrailComponent extends ECS.Component {
 
 		let scene = this.entity.root;
 		scene.add(this.model);
-
-		//window.game.scene.add(this.model);
 	}
 }

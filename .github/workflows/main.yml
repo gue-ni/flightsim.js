@@ -24,7 +24,7 @@ jobs:
             - name: copy files via scp
               uses: appleboy/scp-action@master
               with:
-                  host: ${{ secrets.HOST }}
+                  host: vaporware.ga
                   username: ${{ secrets.USERNAME }}
                   password: ${{ secrets.PASSWORD }}
                   port: 22

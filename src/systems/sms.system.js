@@ -27,7 +27,7 @@ export class StoresManagmentSystem extends ECS.System {
 					const transform = weapon.transform;
 					const parent = transform.parent;
 
-					let wP = transform.getWorldPosition(new THREE.Vector3()).multiplyScalar(10);
+					let wP = transform.getWorldPosition(new THREE.Vector3());
 					let wQ = transform.getWorldQuaternion(new THREE.Quaternion());
 
 					transform.position.copy(wP);

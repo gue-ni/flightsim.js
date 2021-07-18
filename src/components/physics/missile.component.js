@@ -11,12 +11,12 @@ export class Missile extends ODE {
 		heading.multiplyScalar(0.01);
 
 		this.s = 0;
-		this.q[0] = velocity.x + heading.x;
-		this.q[2] = velocity.z + heading.z;
-		this.q[4] = velocity.y + heading.y;
-		this.q[1] = position.x;
-		this.q[3] = position.z;
-		this.q[5] = position.y;
+		this.q[0] = velocity.x + heading.x * 10;
+		this.q[2] = velocity.z + heading.z * 10;
+		this.q[4] = velocity.y + heading.y * 10;
+		this.q[1] = position.x * 10;
+		this.q[3] = position.z * 10;
+		this.q[5] = position.y * 10;
 
 		this.mass = 40;
 		this.diameter = 0.18;

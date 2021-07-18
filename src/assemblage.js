@@ -34,10 +34,12 @@ export class Assemblage {
 		entity.addComponent(new EventComponent(entity));
 		entity.addComponent(new FalconModel(entity, this.assets.gltf.falcon.asset));
 		entity.addComponent(new Airplane(entity, velocity));
+		//entity.addComponent(new Missile(entity, velocity));
 		entity.addComponent(new Velocity(entity, velocity));
 		entity.addComponent(new Joystick(entity));
 		entity.addComponent(new HUD(entity));
 		entity.addComponent(new Test(entity));
+		entity.addComponent(new TrailComponent(entity));
 		entity.addComponent(new Afterburner(entity));
 		entity.addComponent(new Collider(entity));
 		entity.addComponent(new View(entity));
