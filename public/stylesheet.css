@@ -5,11 +5,7 @@ body {
 	height: 100vh;
 	box-sizing: border-box;
 	font-family: Tahoma;
-
-	/*
-	background-image: url("./assets/images/falcon.png");
-	background-position: center;
-	*/
+	background-color: black;
 }
 
 .gui {
