@@ -18,6 +18,12 @@ export class OrbitView extends State {
 	}
 }
 
+export class ThirdPersonView extends State {
+	constructor(entity) {
+		super();
+	}
+}
+
 export class CockpitView extends State {
 	constructor(entity) {
 		super();
