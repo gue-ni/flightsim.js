@@ -45,7 +45,7 @@ export class Afterburner extends ECS.Component {
 		this._muzzlePosition = new THREE.Vector3(-0.75, 0, 0);
 
 		this.inside = new Fire(0.03, 0.2, 1.0, "orange");
-		this.outside = new Fire(0.04, 0.3, 0.5, 0x5d6b97);
+		this.outside = new Fire(0.045, 0.3, 0.5, 0x5d6b97);
 
 		this.inside.mesh.position.copy(this._muzzlePosition);
 		this.outside.mesh.position.copy(this._muzzlePosition);

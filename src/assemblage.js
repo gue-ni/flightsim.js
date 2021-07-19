@@ -45,15 +45,15 @@ export class Assemblage {
 		//entity.addComponent(new Test(entity));
 
 		let hardpoints = entity.addComponent(new Hardpoints(entity));
-		hardpoints.h1.add(this.missile(entity.transform));
-		hardpoints.h2.add(this.missile(entity.transform));
-		hardpoints.h9.add(this.missile(entity.transform));
-		hardpoints.h8.add(this.missile(entity.transform));
+		hardpoints.h1.add(this.amraam(entity.transform));
+		hardpoints.h2.add(this.amraam(entity.transform));
+		hardpoints.h9.add(this.amraam(entity.transform));
+		hardpoints.h8.add(this.amraam(entity.transform));
 
 		return entity;
 	}
 
-	missile(parent) {
+	amraam(parent) {
 		const entity = new ECS.Entity(parent);
 		entity.addComponent(new Guidance(entity));
 		entity.addComponent(new SimpleModel(entity, this.assets.gltf.amraam.asset));
