@@ -7,7 +7,7 @@ export class ViewSystem extends ECS.System {
 	constructor() {
 		super([View]);
 
-		this.activeEntity = 0;
+		this.activeEntity = null;
 		this.pointerdown = false;
 	}
 
@@ -15,10 +15,22 @@ export class ViewSystem extends ECS.System {
 		return this.activeEntity.getComponent(View).camera;
 	}
 
+	getNext(entities) {
+		let current = entities.indexOf(this.activeEntity);
+		let next = (current + 1) % entities.length;
+		console.log(current, next);
+
+		entities[current].removeComponent(Input);
+		entities[next].addComponent(new Input(entities[next]));
+		this.activeEntity = entities[next];
+		console.log(this.activeEntity);
+	}
+
 	updateSystem(entities, dt, params) {
-		this.activeEntity = entities[0];
-		this.updateEntity(this.activeEntity, dt, params);
-		//this.updateEntity(entities[this.activeEntity], dt, params);
+		if (!this.activeEntity) {
+			this.activeEntity = entities[0];
+		}
+		this.updateEntity(this.activeEntity, dt, { ...params, entities: entities });
 	}
 
 	updateEntity(entity, dt, params) {
@@ -26,13 +38,23 @@ export class ViewSystem extends ECS.System {
 		const input = entity.getComponent(Input);
 		const transform = entity.transform;
 
+		if (!input) {
+			console.log(entity);
+			throw new Error("something is wrong");
+			return;
+		}
+
 		input.poll("keydown", (event) => {
 			switch (event.code) {
-				case "Digit3":
+				case "Digit1":
+					this.getNext(params.entities);
+					break;
+
+				case "Digit2":
 					entity.getComponent(View).views.setState(CockpitView);
 					break;
 
-				case "Digit4":
+				case "Digit3":
 					entity.getComponent(View).views.setState(OrbitView);
 					break;
 			}
@@ -78,6 +100,22 @@ export class ViewSystem extends ECS.System {
 					view._rotation.x -= event.movementY * dt;
 					view._rotation.y -= event.movementX * dt;
 				}
+			});
+
+			input.poll("touchstart", (event) => {
+				console.log("touchstart");
+				event.preventDefault();
+			});
+
+			input.poll("touchend", (event) => {
+				event.preventDefault();
+				console.log("touchend");
+			});
+
+			input.poll("touchmove", (event) => {
+				event.preventDefault();
+				console.log("touchmove");
+				console.log(event);
 			});
 
 			view.camera.rotation.copy(view._rotation);

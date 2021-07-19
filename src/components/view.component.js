@@ -54,12 +54,17 @@ export class CockpitView extends State {
 }
 
 export class View extends ECS.Component {
-	constructor(entity) {
+	constructor(entity, states) {
 		super(entity);
 		this.views = new FiniteStateMachine();
-		this.views.addState(new OrbitView(entity));
-		this.views.addState(new CockpitView(entity));
-		this.views.setState(OrbitView);
+
+		for (let state of states) {
+			console.log(state);
+			this.views.addState(new state(entity));
+		}
+		//this.views.addState(new OrbitView(entity));
+		//this.views.addState(new CockpitView(entity));
+		this.views.setState(states[0]);
 	}
 
 	get current() {

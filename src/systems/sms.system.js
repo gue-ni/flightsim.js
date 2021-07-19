@@ -8,6 +8,7 @@ import { Trail } from "../components/particles/trail.component";
 import { Airplane } from "../components/physics/airplane.component";
 import { Missile } from "../components/physics/missile.component";
 import { Velocity } from "../components/velocity.component";
+import { OrbitView, View } from "../components/view.component";
 
 export class StoresManagmentSystem extends ECS.System {
 	constructor() {
@@ -41,6 +42,7 @@ export class StoresManagmentSystem extends ECS.System {
 					weapon.addComponent(new Missile(weapon, v));
 					weapon.addComponent(new Velocity(weapon, v));
 					weapon.addComponent(new Trail(weapon));
+					weapon.addComponent(new View(weapon, [OrbitView]));
 					weapon.addComponent(new Joystick(weapon));
 
 					break;

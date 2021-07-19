@@ -5,6 +5,9 @@ export class AssetManager {
 	constructor(oncomplete) {
 		this.assets = {
 			gltf: {
+				sam: {
+					url: "assets/objects/SA-6.glb",
+				},
 				drone: {
 					url: "assets/objects/MQ-9v2.glb",
 				},

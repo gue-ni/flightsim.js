@@ -15,7 +15,7 @@ import { Missile } from "./components/physics/missile.component";
 import { SpringODE } from "./components/physics/spring_ode.component";
 import { TestComponent as Test } from "./components/test.component";
 import { Velocity } from "./components/velocity.component";
-import { View as View } from "./components/view.component";
+import { CockpitView, OrbitView, View as View } from "./components/view.component";
 import { Afterburner } from "./components/particles/afterburner.component";
 import { Trail } from "./components/particles/trail.component";
 
@@ -29,17 +29,19 @@ export class Assemblage {
 	falcon(position, velocity) {
 		const entity = new ECS.Entity(this.scene);
 		entity.transform.position.copy(position);
+		this.ecs.addEntity(entity);
 
 		entity.addComponent(new Input(entity));
 		entity.addComponent(new EventComponent(entity));
 		entity.addComponent(new FalconModel(entity, this.assets.gltf.falcon.asset));
+		//entity.addComponent(new SimpleModel(entity, this.assets.gltf.sam.asset));
 		entity.addComponent(new Airplane(entity, velocity));
 		entity.addComponent(new Velocity(entity, velocity));
 		entity.addComponent(new Joystick(entity));
 		entity.addComponent(new HUD(entity));
 		entity.addComponent(new Afterburner(entity));
 		entity.addComponent(new Collider(entity));
-		entity.addComponent(new View(entity));
+		entity.addComponent(new View(entity, [OrbitView, CockpitView]));
 		//entity.addComponent(new Test(entity));
 
 		let hardpoints = entity.addComponent(new Hardpoints(entity));
@@ -48,7 +50,6 @@ export class Assemblage {
 		hardpoints.h9.add(this.missile(entity.transform));
 		hardpoints.h8.add(this.missile(entity.transform));
 
-		this.ecs.addEntity(entity);
 		return entity;
 	}
 
@@ -60,10 +61,19 @@ export class Assemblage {
 		return entity;
 	}
 
+	sam(position) {
+		const entity = new ECS.Entity(this.scene);
+		entity.transform.position.copy(position);
+		entity.addComponent(new Collider(entity, new THREE.Vector3(10, 10, 10)));
+		entity.addComponent(new SimpleModel(entity, this.assets.gltf.sam.asset));
+		this.ecs.addEntity(entity);
+		return entity;
+	}
+
 	basic(position) {
 		const entity = new ECS.Entity(this.scene);
 		entity.transform.position.copy(position);
-		entity.addComponent(new View(entity));
+		entity.addComponent(new View(entity, [OrbitView]));
 		entity.addComponent(new Collider(entity, new THREE.Vector3(10, 10, 10)));
 		entity.addComponent(new Box(entity, { size: new THREE.Vector3(10, 10, 10) }));
 		this.ecs.addEntity(entity);
