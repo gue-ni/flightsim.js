@@ -23,7 +23,6 @@ export class ViewSystem extends ECS.System {
 		entities[current].removeComponent(Input);
 		entities[next].addComponent(new Input(entities[next]));
 		this.activeEntity = entities[next];
-		console.log(this.activeEntity);
 	}
 
 	updateSystem(entities, dt, params) {
@@ -39,7 +38,6 @@ export class ViewSystem extends ECS.System {
 		const transform = entity.transform;
 
 		if (!input) {
-			console.log(entity);
 			throw new Error("something is wrong");
 			return;
 		}

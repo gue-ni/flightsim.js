@@ -1,6 +1,6 @@
-import { FiniteStateMachine, State } from "./fsm";
-import { Game } from "../game";
-import { AssetManager } from "../asset_manager";
+import { FiniteStateMachine, State } from "./state/fsm";
+import { Game } from "./game";
+import { AssetManager } from "./asset_manager";
 
 class ScreenState extends State {
 	constructor(fsm, element_id) {

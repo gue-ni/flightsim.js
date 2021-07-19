@@ -1,7 +1,7 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 
-import { Hardpoints } from "../components/aircraft/hardpoints.component";
+import { FalconHardpoints } from "../components/aircraft/hardpoints.component";
 import { Joystick } from "../components/aircraft/joystick.component";
 import { Input } from "../components/input.component";
 import { Trail } from "../components/particles/trail.component";
@@ -12,12 +12,12 @@ import { OrbitView, View } from "../components/view.component";
 
 export class StoresManagmentSystem extends ECS.System {
 	constructor() {
-		super([Hardpoints, Input, Velocity]);
+		super([FalconHardpoints, Input, Velocity]);
 	}
 
 	updateEntity(entity, dt, params) {
 		const input = entity.getComponent(Input);
-		const hardpoints = entity.getComponent(Hardpoints);
+		const hardpoints = entity.getComponent(FalconHardpoints);
 		const velocity = entity.getComponent(Velocity).velocity;
 
 		input.poll("keydown", (event) => {

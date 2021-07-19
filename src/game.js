@@ -9,7 +9,7 @@ import { Assemblage } from "./assemblage";
 import { SpringSystem } from "./systems/physics/physics.system";
 import { AirplaneSystem } from "./systems/physics/airplane.system";
 
-import { Loading, Splash } from "./state/game_state";
+import { Loading, Splash } from "./game_state";
 import { JoystickSystem } from "./systems/aircraft/joystick.system";
 import { ViewSystem } from "./systems/view.system";
 import { InputSystem } from "./systems/input.system";
@@ -21,7 +21,7 @@ import { MissileSystem } from "./systems/physics/missile.system";
 import { ControlSystem } from "./systems/control.system";
 import { EventSystem } from "./systems/event.system";
 import { Test2System } from "./systems/test2.system";
-import { ModelSystem } from "./systems/model.system";
+import { FalconModelSystem, SamModelSystem } from "./systems/model.system";
 import { AfterburnerSystem } from "./systems/particles/afterburner.system";
 import { TrailSystem } from "./systems/particles/trail.system";
 import { Guidance } from "./components/weapons/guidance.component";
@@ -107,20 +107,22 @@ function setup() {
 	ecs.addSystem(new SpringSystem());
 	ecs.addSystem(new AirplaneSystem());
 	ecs.addSystem(new TestSystem());
-	ecs.addSystem(new ModelSystem());
+	ecs.addSystem(new FalconModelSystem());
 	ecs.addSystem(new StoresManagmentSystem());
 	ecs.addSystem(new AfterburnerSystem());
 	ecs.addSystem(new TrailSystem());
 	ecs.addSystem(new Test2System());
 	ecs.addSystem(new HUDSystem());
 	ecs.addSystem(new MissileSystem());
+	ecs.addSystem(new SamModelSystem());
 	ecs.addSystem(new ControlSystem());
 	view = ecs.addSystem(new ViewSystem());
 
 	let assemblage = new Assemblage(ecs, assets, scene);
 
 	assemblage.falcon(new THREE.Vector3(0, 400, 0), new THREE.Vector3(50, 0, 0));
-	assemblage.basic(new THREE.Vector3(0, 400, 0));
+	assemblage.basic(terrain.placeAt(0, 0));
+	assemblage.sam(terrain.placeAt(100, 100));
 }
 
 function gameLoop(now) {

@@ -59,7 +59,6 @@ export class View extends ECS.Component {
 		this.views = new FiniteStateMachine();
 
 		for (let state of states) {
-			console.log(state);
 			this.views.addState(new state(entity));
 		}
 		this.views.setState(states[0]);

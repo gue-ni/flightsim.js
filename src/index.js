@@ -1,3 +1,3 @@
-import { GameState } from "./state/game_state";
+import { GameState } from "./game_state";
 
 const gameState = new GameState();

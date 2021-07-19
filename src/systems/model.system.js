@@ -1,10 +1,11 @@
 import * as THREE from "three";
 import * as ECS from "lofi-ecs";
-import { FalconModel } from "../components/model.component";
+import { FalconModel, SamModel } from "../components/model.component";
 import { CockpitView, View } from "../components/view.component";
 import { Joystick } from "../components/aircraft/joystick.component";
+import { SamHardpoints } from "../components/aircraft/hardpoints.component";
 
-export class ModelSystem extends ECS.System {
+export class FalconModelSystem extends ECS.System {
 	constructor() {
 		super([FalconModel, View, Joystick]);
 	}
@@ -36,5 +37,21 @@ export class ModelSystem extends ECS.System {
 			model.leftflap.rotation.set(fl, 0, 0);
 			model.rightflap.rotation.set(-fl, 0, 0);
 		}
+	}
+}
+
+export class SamModelSystem extends ECS.System {
+	constructor() {
+		super([SamModel, SamHardpoints]);
+	}
+
+	updateEntity(entity, dt, params) {
+		let model = entity.getComponent(SamModel);
+		let hardpoints = entity.getComponent(SamHardpoints);
+
+		let weapon = hardpoints.h1.weapon;
+		//weapon.transform.rotation.set(model.launcher.rotation.x, model.turret.rotation.y, 0, "YZX");
+		//weapon.transform.rotation.set(-Math.PI / 4, model.turret.rotation.y, 0, "YXZ");
+		weapon.transform.rotation.set(0, 0, 0, "YXZ");
 	}
 }

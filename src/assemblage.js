@@ -1,7 +1,7 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 import { Scene } from "three";
-import { Hardpoints } from "./components/aircraft/hardpoints.component";
+import { FalconHardpoints, SamHardpoints } from "./components/aircraft/hardpoints.component";
 import { Collider } from "./components/collider.component";
 import { EventComponent } from "./components/event.component";
 import { HUD } from "./components/aircraft/hud.component";
@@ -9,7 +9,7 @@ import { HUD } from "./components/aircraft/hud.component";
 import { Input as Input } from "./components/input.component";
 import { Joystick } from "./components/aircraft/joystick.component";
 import { Guidance } from "./components/weapons/guidance.component";
-import { Box, FalconModel, SimpleModel } from "./components/model.component";
+import { Box, FalconModel, SamModel, SimpleModel } from "./components/model.component";
 import { Airplane } from "./components/physics/airplane.component";
 import { Missile } from "./components/physics/missile.component";
 import { SpringODE } from "./components/physics/spring_ode.component";
@@ -44,11 +44,11 @@ export class Assemblage {
 		entity.addComponent(new View(entity, [OrbitView, CockpitView]));
 		//entity.addComponent(new Test(entity));
 
-		let hardpoints = entity.addComponent(new Hardpoints(entity));
-		hardpoints.h1.add(this.amraam(entity.transform));
-		hardpoints.h2.add(this.amraam(entity.transform));
-		hardpoints.h9.add(this.amraam(entity.transform));
-		hardpoints.h8.add(this.amraam(entity.transform));
+		let hardpoints = entity.addComponent(new FalconHardpoints(entity));
+		hardpoints.h1.add(this.amraam(hardpoints.h1.transform));
+		hardpoints.h2.add(this.amraam(hardpoints.h1.transform));
+		hardpoints.h9.add(this.amraam(hardpoints.h1.transform));
+		hardpoints.h8.add(this.amraam(hardpoints.h1.transform));
 
 		return entity;
 	}
@@ -56,6 +56,7 @@ export class Assemblage {
 	amraam(parent) {
 		const entity = new ECS.Entity(parent);
 		entity.addComponent(new Guidance(entity));
+		entity.addComponent(new View(entity, [OrbitView]));
 		entity.addComponent(new SimpleModel(entity, this.assets.gltf.amraam.asset));
 		this.ecs.addEntity(entity);
 		return entity;
@@ -64,8 +65,16 @@ export class Assemblage {
 	sam(position) {
 		const entity = new ECS.Entity(this.scene);
 		entity.transform.position.copy(position);
+		entity.addComponent(new View(entity, [OrbitView]));
 		entity.addComponent(new Collider(entity, new THREE.Vector3(10, 10, 10)));
-		entity.addComponent(new SimpleModel(entity, this.assets.gltf.sam.asset));
+
+		let sam = entity.addComponent(new SamModel(entity, this.assets.gltf.sam.asset));
+		let hardpoints = entity.addComponent(new SamHardpoints(entity, sam.launcher));
+		hardpoints.h1.add(this.amraam(entity.transform));
+
+		//let hardpoints = entity.addComponent(new FalconHardpoints(entity));
+		//hardpoints.h1.add(this.amraam(hardpoints.h1.transform));
+
 		this.ecs.addEntity(entity);
 		return entity;
 	}

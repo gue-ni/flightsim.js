@@ -11,16 +11,7 @@ export class Terrain {
 
 		//this._heightmap = new FixedHeightMap();
 		this._heightmap = new ImageHeightMap(params.heightmap);
-
 		this._chunks = {};
-		/*
-        const x = new Chunk(
-            this.root,
-            new THREE.Vector2(),
-            new THREE.Vector2(256, 256),
-            this._heightmap
-        );
-        */
 	}
 
 	_build(pos) {

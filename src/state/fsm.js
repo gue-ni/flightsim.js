@@ -35,11 +35,11 @@ export class State {
 
 	enter(previous) {
 		if (this == previous) return;
-		console.log(`entering ${this.constructor.name}`);
+		//console.log(`entering ${this.constructor.name}`);
 	}
 
 	exit(next) {
 		if (this == next) return;
-		console.log(`exiting ${this.constructor.name}`);
+		//console.log(`exiting ${this.constructor.name}`);
 	}
 }
