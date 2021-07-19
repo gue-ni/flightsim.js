@@ -62,8 +62,6 @@ export class View extends ECS.Component {
 			console.log(state);
 			this.views.addState(new state(entity));
 		}
-		//this.views.addState(new OrbitView(entity));
-		//this.views.addState(new CockpitView(entity));
 		this.views.setState(states[0]);
 	}
 
