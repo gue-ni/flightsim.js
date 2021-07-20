@@ -46,9 +46,9 @@ export class Assemblage {
 
 		let hardpoints = entity.addComponent(new FalconHardpoints(entity));
 		hardpoints.h1.add(this.amraam(hardpoints.h1.transform));
-		hardpoints.h2.add(this.amraam(hardpoints.h1.transform));
-		hardpoints.h9.add(this.amraam(hardpoints.h1.transform));
-		hardpoints.h8.add(this.amraam(hardpoints.h1.transform));
+		//hardpoints.h2.add(this.amraam(hardpoints.h1.transform));
+		//hardpoints.h9.add(this.amraam(hardpoints.h1.transform));
+		//hardpoints.h8.add(this.amraam(hardpoints.h1.transform));
 
 		return entity;
 	}
@@ -69,11 +69,6 @@ export class Assemblage {
 		entity.addComponent(new Collider(entity, new THREE.Vector3(10, 10, 10)));
 
 		let sam = entity.addComponent(new SamModel(entity, this.assets.gltf.sam.asset));
-		let hardpoints = entity.addComponent(new SamHardpoints(entity, sam.launcher));
-		hardpoints.h1.add(this.amraam(entity.transform));
-
-		//let hardpoints = entity.addComponent(new FalconHardpoints(entity));
-		//hardpoints.h1.add(this.amraam(hardpoints.h1.transform));
 
 		this.ecs.addEntity(entity);
 		return entity;

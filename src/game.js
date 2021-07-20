@@ -26,6 +26,7 @@ import { AfterburnerSystem } from "./systems/particles/afterburner.system";
 import { TrailSystem } from "./systems/particles/trail.system";
 import { Guidance } from "./components/weapons/guidance.component";
 import { StoresManagmentSystem } from "./systems/sms.system";
+import { SAMSystem } from "./systems/sam.system";
 
 let cancel, ecs, renderer, scene, stats, assets, view, terrain, sun;
 let dt,
@@ -115,14 +116,14 @@ function setup() {
 	ecs.addSystem(new HUDSystem());
 	ecs.addSystem(new MissileSystem());
 	ecs.addSystem(new SamModelSystem());
+	ecs.addSystem(new SAMSystem(ecs));
 	ecs.addSystem(new ControlSystem());
 	view = ecs.addSystem(new ViewSystem());
 
 	let assemblage = new Assemblage(ecs, assets, scene);
 
-	assemblage.falcon(new THREE.Vector3(0, 400, 0), new THREE.Vector3(50, 0, 0));
-	assemblage.basic(terrain.placeAt(0, 0));
-	assemblage.sam(terrain.placeAt(100, 100));
+	assemblage.falcon(new THREE.Vector3(-1000, 40, 0), new THREE.Vector3(50, 0, 0));
+	assemblage.sam(terrain.placeAt(0, 0));
 }
 
 function gameLoop(now) {

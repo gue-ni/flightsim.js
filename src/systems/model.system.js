@@ -50,8 +50,7 @@ export class SamModelSystem extends ECS.System {
 		let hardpoints = entity.getComponent(SamHardpoints);
 
 		let weapon = hardpoints.h1.weapon;
-		//weapon.transform.rotation.set(model.launcher.rotation.x, model.turret.rotation.y, 0, "YZX");
-		//weapon.transform.rotation.set(-Math.PI / 4, model.turret.rotation.y, 0, "YXZ");
-		weapon.transform.rotation.set(0, 0, 0, "YXZ");
+		//weapon.transform.rotation.set(0, -model.turret.rotation.y - Math.PI / 4, model.turret.rotation.y, "YZX");
+		weapon.transform.rotation.set(0, 0, model.turret.rotation.y, "YZX");
 	}
 }

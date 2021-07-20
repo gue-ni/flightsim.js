@@ -86,9 +86,46 @@ export class SamModel extends SimpleModel {
 
 		this.turret = this.model.getObjectByName("Turret");
 		this.launcher = this.model.getObjectByName("Launcher");
+		this.missile_1 = this.model.getObjectByName("Missile_1");
 
-		this.turret.rotation.set(0, Math.PI / 4, 0);
-		this.launcher.rotation.set(-Math.PI / 4, 0, 0);
+		this.yaw = Math.PI / 4;
+		this.pitch = -Math.PI / 4;
+
+		this.turret.rotation.set(0, this.yaw, 0);
+		this.launcher.rotation.set(this.pitch, 0, 0);
+	}
+}
+
+export class MeshModel extends ECS.Component {
+	constructor(entity, mesh, params) {
+		super(entity);
+
+		params = params || {};
+		const position = params.position || new THREE.Vector3();
+		const scale = params.scale || new THREE.Vector3(0.1, 0.1, 0.1);
+		const rotation = params.rotation || new THREE.Vector3(0, -Math.PI / 2, 0);
+
+		this.model = mesh.clone();
+
+		/*
+		this.model.position.copy(position);
+		this.model.rotateX(rotation.x);
+		this.model.rotateY(rotation.y);
+		this.model.rotateZ(rotation.z);
+		this.model.scale.copy(scale);
+		*/
+
+		/*
+		this.model.traverse(function (mesh) {
+			if (mesh.isMesh) {
+				mesh.castShadow = true;
+				mesh.material.roughness = 1.0;
+				mesh.material.flatShading = true;
+			}
+		});
+		*/
+
+		this.entity.transform.add(this.model);
 	}
 }
 
