@@ -18,7 +18,7 @@ export class TrailSystem extends ECS.System {
 
 		function setElement(i, params) {
 			let pos = params.position;
-			let width = trail.trailWidth;
+			let width = trail.trailWidth + params.offset;
 
 			const vertical = trail.geometry1.attributes.position.array;
 			const horizontal = trail.geometry2.attributes.position.array;
@@ -41,6 +41,7 @@ export class TrailSystem extends ECS.System {
 			if (trail.active) {
 				trail.tail.unshift({
 					position: entity.position.clone(),
+					offset: Math.random() * 0.01,
 				});
 				trail.tail.pop();
 
