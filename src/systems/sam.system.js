@@ -6,7 +6,7 @@ import { MeshModel, SamModel, SimpleModel } from "../components/model.component"
 import { Trail } from "../components/particles/trail.component";
 import { Missile } from "../components/physics/missile.component";
 import { Velocity } from "../components/velocity.component";
-import { OrbitView, View } from "../components/view.component";
+import { HudView, OrbitView, View } from "../components/view.component";
 import { MissileSystem } from "./physics/missile.system";
 
 export class SAMSystem extends ECS.System {
@@ -44,7 +44,7 @@ export class SAMSystem extends ECS.System {
 					weapon.addComponent(new Missile(weapon, new THREE.Vector3()));
 					weapon.addComponent(new Velocity(weapon, new THREE.Vector3()));
 					weapon.addComponent(new Trail(weapon));
-					weapon.addComponent(new View(weapon, [OrbitView]));
+					weapon.addComponent(new View(weapon, [OrbitView, HudView]));
 					weapon.addComponent(new SimpleModel(weapon, this.assets.gltf.missile.asset));
 					weapon.addComponent(new Joystick(weapon));
 
