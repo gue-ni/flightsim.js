@@ -25,34 +25,27 @@ export class SAMSystem extends ECS.System {
 				case "KeyF":
 					console.log("fire", this);
 
-					let missile = sam.missile_1;
+					let missile = sam.missile;
+
+					if (!missile) {
+						return;
+					}
 
 					const scene = entity.root;
 					const weapon = new ECS.Entity(scene);
 					this.ecs.addEntity(weapon);
-
-					const transform = weapon.transform;
-					const parent = transform.parent;
 
 					let wP = missile.getWorldPosition(new THREE.Vector3());
 					weapon.transform.position.copy(wP);
 					weapon.transform.rotation.set(0, sam.yaw + Math.PI, sam.pitch + Math.PI / 2);
 
 					missile.parent.remove(missile);
-					/*	
-					missile.rotation.set(0, 0, -Math.PI / 2);
-					let scale = 0.015;
-					missile.scale.set(scale, scale, scale);
-					missile.position.set(0, 0, 0);
-					weapon.transform.add(missile);
-					*/
 
 					weapon.addComponent(new Missile(weapon, new THREE.Vector3()));
 					weapon.addComponent(new Velocity(weapon, new THREE.Vector3()));
 					weapon.addComponent(new Trail(weapon));
 					weapon.addComponent(new View(weapon, [OrbitView]));
 					weapon.addComponent(new SimpleModel(weapon, this.assets.gltf.missile.asset));
-					//weapon.addComponent(new MeshModel(weapon, missile));
 					weapon.addComponent(new Joystick(weapon));
 
 					console.log(weapon);

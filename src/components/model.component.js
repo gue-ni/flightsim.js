@@ -88,11 +88,18 @@ export class SamModel extends SimpleModel {
 		this.launcher = this.model.getObjectByName("Launcher");
 		this.missile_1 = this.model.getObjectByName("Missile_1");
 
+		this._count = 1;
+
 		this.yaw = Math.PI / 4;
 		this.pitch = -Math.PI / 4;
 
 		this.turret.rotation.set(0, this.yaw, 0);
 		this.launcher.rotation.set(this.pitch, 0, 0);
+	}
+
+	get missile() {
+		let missile = this.model.getObjectByName(`Missile_${this._count++}`);
+		return missile;
 	}
 }
 
