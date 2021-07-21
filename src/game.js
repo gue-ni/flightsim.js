@@ -77,7 +77,7 @@ function setup_sky() {
 }
 
 function setup() {
-	let canvas = document.querySelector("#canvas");
+	const canvas = document.querySelector("#canvas");
 	renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, logarithmicDepthBuffer: true });
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	renderer.physicallyCorrectLights = true;

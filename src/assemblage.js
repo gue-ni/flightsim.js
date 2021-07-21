@@ -15,7 +15,7 @@ import { Missile } from "./components/physics/missile.component";
 import { SpringODE } from "./components/physics/spring_ode.component";
 import { TestComponent as Test } from "./components/test.component";
 import { Velocity } from "./components/velocity.component";
-import { CockpitView, OrbitView, View as View } from "./components/view.component";
+import { CockpitView, HudView, OrbitView, View as View } from "./components/view.component";
 import { Afterburner } from "./components/particles/afterburner.component";
 import { Trail } from "./components/particles/trail.component";
 
@@ -41,7 +41,7 @@ export class Assemblage {
 		entity.addComponent(new HUD(entity));
 		entity.addComponent(new Afterburner(entity));
 		entity.addComponent(new Collider(entity));
-		entity.addComponent(new View(entity, [OrbitView, CockpitView]));
+		entity.addComponent(new View(entity, [OrbitView, CockpitView, HudView]));
 		//entity.addComponent(new Test(entity));
 
 		let hardpoints = entity.addComponent(new FalconHardpoints(entity));
@@ -56,7 +56,6 @@ export class Assemblage {
 	amraam(parent) {
 		const entity = new ECS.Entity(parent);
 		entity.addComponent(new Guidance(entity));
-		entity.addComponent(new View(entity, [OrbitView]));
 		entity.addComponent(new SimpleModel(entity, this.assets.gltf.amraam.asset));
 		this.ecs.addEntity(entity);
 		return entity;

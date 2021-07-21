@@ -11,6 +11,12 @@ export class OrbitView extends State {
 		this.phi = Math.PI / 2 - 0.25;
 
 		this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
+
+		let vec = new THREE.Vector3().setFromSphericalCoords(this.radius, this.phi, this.theta);
+		let pos = this.entity.transform.getWorldPosition(new THREE.Vector3());
+		this.camera.position.addVectors(pos, vec);
+		this.camera.lookAt(pos);
+
 		window.addEventListener("resize", () => {
 			this.camera.aspect = window.innerWidth / window.innerHeight;
 			this.camera.updateProjectionMatrix();
@@ -21,6 +27,19 @@ export class OrbitView extends State {
 export class ThirdPersonView extends State {
 	constructor(entity) {
 		super();
+	}
+}
+
+export class HudView extends State {
+	constructor(entity) {
+		super();
+		this.entity = entity;
+		this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
+
+		this._default = new THREE.Euler(0, -Math.PI / 2, 0, "YZX");
+		this.camera.rotation.copy(this._default);
+		this.camera.position.set(1, 0, 0);
+		this.entity.transform.add(this.camera);
 	}
 }
 
