@@ -23,8 +23,6 @@ export class SAMSystem extends ECS.System {
 		input.poll("keydown", (event) => {
 			switch (event.code) {
 				case "KeyF":
-					console.log("fire", this);
-
 					let missile = sam.missile;
 
 					if (!missile) {
@@ -36,8 +34,10 @@ export class SAMSystem extends ECS.System {
 					this.ecs.addEntity(weapon);
 
 					let wP = missile.getWorldPosition(new THREE.Vector3());
+					let wQ = missile.getWorldQuaternion(new THREE.Quaternion());
 					weapon.transform.position.copy(wP);
 					weapon.transform.rotation.set(0, sam.yaw + Math.PI, sam.pitch + Math.PI / 2);
+					//weapon.transform.quaternion.copy(wQ);
 
 					missile.parent.remove(missile);
 
@@ -45,7 +45,7 @@ export class SAMSystem extends ECS.System {
 					weapon.addComponent(new Velocity(weapon, new THREE.Vector3()));
 					weapon.addComponent(new Trail(weapon));
 					weapon.addComponent(new View(weapon, [OrbitView, HudView]));
-					weapon.addComponent(new SimpleModel(weapon, this.assets.gltf.missile.asset));
+					weapon.addComponent(new SimpleModel(weapon, this.assets.gltf.sa6_missile.asset));
 					weapon.addComponent(new Joystick(weapon));
 
 					console.log(weapon);

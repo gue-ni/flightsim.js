@@ -38,6 +38,7 @@ export class Assemblage {
 		entity.addComponent(new Airplane(entity, velocity));
 		entity.addComponent(new Velocity(entity, velocity));
 		entity.addComponent(new Joystick(entity));
+		entity.addComponent(new Trail(entity));
 		entity.addComponent(new HUD(entity));
 		entity.addComponent(new Afterburner(entity));
 		entity.addComponent(new Collider(entity));
@@ -66,9 +67,7 @@ export class Assemblage {
 		entity.transform.position.copy(position);
 		entity.addComponent(new View(entity, [OrbitView]));
 		entity.addComponent(new Collider(entity, new THREE.Vector3(10, 10, 10)));
-
-		let sam = entity.addComponent(new SamModel(entity, this.assets.gltf.sam.asset));
-
+		entity.addComponent(new SamModel(entity, this.assets.gltf.sa6_launcher.asset));
 		this.ecs.addEntity(entity);
 		return entity;
 	}
