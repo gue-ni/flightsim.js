@@ -2,7 +2,7 @@ import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 import { Joystick } from "../components/aircraft/joystick.component";
 import { Input } from "../components/input.component";
-import { MeshModel, SamModel } from "../components/model.component";
+import { MeshModel, SamModel, SimpleModel } from "../components/model.component";
 import { Trail } from "../components/particles/trail.component";
 import { Missile } from "../components/physics/missile.component";
 import { Velocity } from "../components/velocity.component";
@@ -10,9 +10,10 @@ import { OrbitView, View } from "../components/view.component";
 import { MissileSystem } from "./physics/missile.system";
 
 export class SAMSystem extends ECS.System {
-	constructor(ecs) {
+	constructor(ecs, assets) {
 		super([Input, SamModel]);
 		this.ecs = ecs;
+		this.assets = assets;
 	}
 
 	updateEntity(entity, dt, params) {
@@ -35,19 +36,22 @@ export class SAMSystem extends ECS.System {
 
 					let wP = missile.getWorldPosition(new THREE.Vector3());
 					weapon.transform.position.copy(wP);
-					weapon.transform.rotation.set(sam.pitch, sam.yaw + Math.PI, 0);
+					weapon.transform.rotation.set(0, sam.yaw + Math.PI, sam.pitch + Math.PI / 2);
 
-					let scale = 0.015;
 					missile.parent.remove(missile);
+					/*	
 					missile.rotation.set(0, 0, -Math.PI / 2);
+					let scale = 0.015;
 					missile.scale.set(scale, scale, scale);
 					missile.position.set(0, 0, 0);
 					weapon.transform.add(missile);
+					*/
 
 					weapon.addComponent(new Missile(weapon, new THREE.Vector3()));
 					weapon.addComponent(new Velocity(weapon, new THREE.Vector3()));
 					weapon.addComponent(new Trail(weapon));
 					weapon.addComponent(new View(weapon, [OrbitView]));
+					weapon.addComponent(new SimpleModel(weapon, this.assets.gltf.missile.asset));
 					//weapon.addComponent(new MeshModel(weapon, missile));
 					weapon.addComponent(new Joystick(weapon));
 

@@ -116,7 +116,7 @@ function setup() {
 	ecs.addSystem(new HUDSystem());
 	ecs.addSystem(new MissileSystem());
 	ecs.addSystem(new SamModelSystem());
-	ecs.addSystem(new SAMSystem(ecs));
+	ecs.addSystem(new SAMSystem(ecs, assets));
 	ecs.addSystem(new ControlSystem());
 	view = ecs.addSystem(new ViewSystem());
 

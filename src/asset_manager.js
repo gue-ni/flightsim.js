@@ -8,6 +8,9 @@ export class AssetManager {
 				sam: {
 					url: "assets/objects/SA-6.glb",
 				},
+				missile: {
+					url: "assets/objects/SAM.glb",
+				},
 				drone: {
 					url: "assets/objects/MQ-9v2.glb",
 				},
