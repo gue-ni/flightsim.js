@@ -1,40 +1,12 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 
-import { Collider } from "../../components/collider.component";
+import { Collider, RadarTarget } from "../../components/collider.component";
 
-export class CollisionSystem extends ECS.System {
-	constructor() {
-		super([Collider]);
-		this.size = 100;
+export class Colliders {
+	constructor(size) {
+		this.size = size || 100;
 		this.space = new Map();
-	}
-
-	updateEntity(entity, dt, params) {
-		const collider = entity.getComponent(Collider);
-
-		const offset = new THREE.Vector3().subVectors(entity.worldPosition, collider.center);
-		collider.geometry.translate(offset);
-
-		const hash = collider.hash;
-
-		if (!hash == collider.lastHash) {
-			collider.lastHash = hash;
-			this.remove(collider);
-			this.insert(collider);
-		}
-
-		for (const possible of this.possible_collisions(collider)) {
-			if (this.collide(collider, possible)) {
-				console.log("collsiion");
-			}
-		}
-	}
-
-	updateSystem(entities, dt, params) {
-		for (const entity of entities) {
-			this.updateEntity(entity, dt, params);
-		}
 	}
 
 	collide(a, b) {
@@ -110,7 +82,7 @@ export class CollisionSystem extends ECS.System {
 		return keys;
 	}
 
-	possible_collisions(aabb) {
+	possible_collisions(aabb, type = Collider) {
 		let min = this.hash(aabb.min);
 		let max = this.hash(aabb.max);
 
@@ -123,7 +95,7 @@ export class CollisionSystem extends ECS.System {
 
 					if (this.space.has(key)) {
 						for (let item of this.space.get(key)) {
-							if (item != aabb) possible.add(item);
+							if (item != aabb && item instanceof type) possible.add(item);
 						}
 					}
 				}
@@ -185,6 +157,40 @@ export class CollisionSystem extends ECS.System {
 			return this.space.get(key);
 		} else {
 			return [];
+		}
+	}
+}
+
+export class CollisionSystem extends ECS.System {
+	constructor() {
+		super([Collider]);
+		this.colliders = new Colliders(100);
+	}
+
+	updateEntity(entity, dt, params) {
+		const collider = entity.getComponent(Collider);
+
+		const offset = new THREE.Vector3().subVectors(entity.worldPosition, collider.center);
+		collider.geometry.translate(offset);
+
+		const hash = collider.hash;
+
+		if (!hash == collider.lastHash) {
+			collider.lastHash = hash;
+			this.colliders.remove(collider);
+			this.colliders.insert(collider);
+		}
+
+		for (const possible of this.colliders.possible_collisions(collider, Collider)) {
+			if (this.colliders.collide(collider, possible)) {
+				console.log("collision");
+			}
+		}
+	}
+
+	updateSystem(entities, dt, params) {
+		for (const entity of entities) {
+			this.updateEntity(entity, dt, params);
 		}
 	}
 }

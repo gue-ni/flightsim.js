@@ -2,7 +2,7 @@ import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 import { Scene } from "three";
 import { FalconHardpoints, SamHardpoints } from "./components/aircraft/hardpoints.component";
-import { Collider } from "./components/collider.component";
+import { Collider, RadarTarget } from "./components/collider.component";
 import { EventComponent } from "./components/event.component";
 import { HUD } from "./components/aircraft/hud.component";
 
@@ -34,22 +34,26 @@ export class Assemblage {
 		entity.addComponent(new Input(entity));
 		entity.addComponent(new EventComponent(entity));
 		entity.addComponent(new FalconModel(entity, this.assets.gltf.falcon.asset));
-		//entity.addComponent(new SimpleModel(entity, this.assets.gltf.sam.asset));
 		entity.addComponent(new Airplane(entity, velocity));
 		entity.addComponent(new Velocity(entity, velocity));
 		entity.addComponent(new Joystick(entity));
-		entity.addComponent(new Trail(entity));
 		entity.addComponent(new HUD(entity));
 		entity.addComponent(new Afterburner(entity));
 		entity.addComponent(new Collider(entity));
+		entity.addComponent(new RadarTarget(entity, new THREE.Vector3(1000, 1000, 1000)));
 		entity.addComponent(new View(entity, [OrbitView, CockpitView, HudView]));
 		//entity.addComponent(new Test(entity));
 
 		let hardpoints = entity.addComponent(new FalconHardpoints(entity));
 		hardpoints.h1.add(this.amraam(hardpoints.h1.transform));
-		//hardpoints.h2.add(this.amraam(hardpoints.h1.transform));
-		//hardpoints.h9.add(this.amraam(hardpoints.h1.transform));
-		//hardpoints.h8.add(this.amraam(hardpoints.h1.transform));
+		hardpoints.h2.add(this.amraam(hardpoints.h2.transform));
+		hardpoints.h3B.add(this.amraam(hardpoints.h2.transform));
+		hardpoints.h3A.add(this.amraam(hardpoints.h2.transform));
+
+		hardpoints.h7B.add(this.amraam(hardpoints.h2.transform));
+		hardpoints.h7A.add(this.amraam(hardpoints.h2.transform));
+		hardpoints.h9.add(this.amraam(hardpoints.h9.transform));
+		hardpoints.h8.add(this.amraam(hardpoints.h8.transform));
 
 		return entity;
 	}
@@ -68,6 +72,7 @@ export class Assemblage {
 		entity.addComponent(new View(entity, [OrbitView]));
 		entity.addComponent(new Collider(entity, new THREE.Vector3(10, 10, 10)));
 		entity.addComponent(new SamModel(entity, this.assets.gltf.sa6_launcher.asset));
+		entity.addComponent(new Collider(entity, new THREE.Vector3(100, 100, 100)));
 		this.ecs.addEntity(entity);
 		return entity;
 	}
