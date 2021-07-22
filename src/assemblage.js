@@ -19,6 +19,7 @@ import { CockpitView, HudView, OrbitView, View as View } from "./components/view
 import { Afterburner } from "./components/particles/afterburner.component";
 import { Trail } from "./components/particles/trail.component";
 import { Radar, RadarTarget } from "./components/collision/radar.component";
+import { SamControl } from "./components/sam.component";
 
 export class Assemblage {
 	constructor(ecs, assets, scene) {
@@ -62,7 +63,6 @@ export class Assemblage {
 
 	amraam(parent) {
 		const entity = new ECS.Entity(parent);
-		entity.addComponent(new Guidance(entity));
 		entity.addComponent(new SimpleModel(entity, this.assets.gltf.amraam.asset));
 		this.ecs.addEntity(entity);
 		return entity;
@@ -72,9 +72,10 @@ export class Assemblage {
 		const entity = new ECS.Entity(this.scene);
 		entity.transform.position.copy(position);
 		entity.addComponent(new View(entity, [OrbitView]));
-		entity.addComponent(new Collider(entity, new THREE.Vector3(10, 10, 10)));
+		entity.addComponent(new Collider(entity));
+		entity.addComponent(new SamControl(entity));
 		entity.addComponent(new SamModel(entity, this.assets.gltf.sa6_launcher.asset));
-		entity.addComponent(new Radar(entity, new THREE.Vector3(100, 100, 100)));
+		entity.addComponent(new Radar(entity, new THREE.Vector3(1000, 1000, 1000)));
 		this.ecs.addEntity(entity);
 		return entity;
 	}

@@ -12,19 +12,21 @@ export class RadarSystem extends ECS.System {
 	}
 
 	updateEntity(entity, dt, params) {
-		const collider = entity.getComponent(Radar);
+		const radar = entity.getComponent(Radar);
+		colliders.updateCollider(radar);
 
-		colliders.updateCollider(collider);
+		radar.targets = [];
 
-		for (const possible of colliders.possible_collisions(collider, RadarTarget)) {
-			if (colliders.collide(collider, possible)) {
-				console.log("radar detected", possible.entity.id);
+		for (const possible of colliders.possible_collisions(radar, RadarTarget)) {
+			if (colliders.collide(radar, possible)) {
+				//console.log("radar detected", possible.entity.id);
+				radar.targets.push(possible.entity);
 			}
 		}
 	}
 }
 
-export class PassiveColliderSystem extends ECS.System {
+export class RadarTargetSystem extends ECS.System {
 	constructor() {
 		super([RadarTarget]);
 	}

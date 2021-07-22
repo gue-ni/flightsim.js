@@ -13,11 +13,14 @@ export class Collider extends ECS.Component {
 		this.keys = [];
 		this.lastHash = "";
 
-		const cube = new THREE.Mesh(
-			new THREE.BoxGeometry(size.x, size.y, size.z),
-			new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
+		/*
+		entity.transform.add(
+			new THREE.Mesh(
+				new THREE.BoxGeometry(size.x, size.y, size.z),
+				new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
+			)
 		);
-		entity.transform.add(cube);
+		*/
 	}
 
 	get min() {

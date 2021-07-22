@@ -12,5 +12,6 @@ export class RadarTarget extends Collider {
 export class Radar extends Collider {
 	constructor(entity, size = new THREE.Vector3(1, 1, 1)) {
 		super(entity, size);
+		this.targets = [];
 	}
 }

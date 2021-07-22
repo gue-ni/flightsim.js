@@ -27,7 +27,8 @@ import { TrailSystem } from "./systems/particles/trail.system";
 import { Guidance } from "./components/weapons/guidance.component";
 import { StoresManagmentSystem } from "./systems/sms.system";
 import { SAMSystem } from "./systems/sam.system";
-import { PassiveColliderSystem, RadarSystem } from "./systems/collision/radar.system";
+import { RadarTargetSystem, RadarSystem } from "./systems/collision/radar.system";
+import { GuidanceSystem } from "./systems/guidance.system";
 
 let cancel, ecs, renderer, scene, stats, assets, view, terrain, sun;
 let dt,
@@ -114,10 +115,11 @@ function setup() {
 	ecs.addSystem(new TrailSystem());
 	ecs.addSystem(new Test2System());
 	ecs.addSystem(new HUDSystem());
+	ecs.addSystem(new GuidanceSystem());
 
 	ecs.addSystem(new CollisionSystem());
 	ecs.addSystem(new RadarSystem());
-	ecs.addSystem(new PassiveColliderSystem());
+	ecs.addSystem(new RadarTargetSystem());
 
 	ecs.addSystem(new MissileSystem());
 	ecs.addSystem(new SamModelSystem());
@@ -127,7 +129,7 @@ function setup() {
 
 	let assemblage = new Assemblage(ecs, assets, scene);
 
-	assemblage.falcon(new THREE.Vector3(-400, 40, 0), new THREE.Vector3(50, 0, 0));
+	assemblage.falcon(new THREE.Vector3(-1500, 300, 0), new THREE.Vector3(50, 0, 0));
 	assemblage.sam(terrain.placeAt(0, 0));
 }
 
