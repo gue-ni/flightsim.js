@@ -27,6 +27,7 @@ import { TrailSystem } from "./systems/particles/trail.system";
 import { Guidance } from "./components/weapons/guidance.component";
 import { StoresManagmentSystem } from "./systems/sms.system";
 import { SAMSystem } from "./systems/sam.system";
+import { PassiveColliderSystem, RadarSystem } from "./systems/collision/radar.system";
 
 let cancel, ecs, renderer, scene, stats, assets, view, terrain, sun;
 let dt,
@@ -103,7 +104,6 @@ function setup() {
 	ecs = new ECS.ECS();
 	ecs.addSystem(new InputSystem());
 	ecs.addSystem(new EventSystem());
-	ecs.addSystem(new CollisionSystem());
 	ecs.addSystem(new JoystickSystem());
 	ecs.addSystem(new SpringSystem());
 	ecs.addSystem(new AirplaneSystem());
@@ -114,6 +114,11 @@ function setup() {
 	ecs.addSystem(new TrailSystem());
 	ecs.addSystem(new Test2System());
 	ecs.addSystem(new HUDSystem());
+
+	ecs.addSystem(new CollisionSystem());
+	ecs.addSystem(new RadarSystem());
+	ecs.addSystem(new PassiveColliderSystem());
+
 	ecs.addSystem(new MissileSystem());
 	ecs.addSystem(new SamModelSystem());
 	ecs.addSystem(new SAMSystem(ecs, assets));

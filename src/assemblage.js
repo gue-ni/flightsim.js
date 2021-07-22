@@ -2,7 +2,7 @@ import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 import { Scene } from "three";
 import { FalconHardpoints, SamHardpoints } from "./components/aircraft/hardpoints.component";
-import { Collider, RadarTarget } from "./components/collider.component";
+import { Collider } from "./components/collision/collider.component";
 import { EventComponent } from "./components/event.component";
 import { HUD } from "./components/aircraft/hud.component";
 
@@ -18,6 +18,7 @@ import { Velocity } from "./components/velocity.component";
 import { CockpitView, HudView, OrbitView, View as View } from "./components/view.component";
 import { Afterburner } from "./components/particles/afterburner.component";
 import { Trail } from "./components/particles/trail.component";
+import { Radar, RadarTarget } from "./components/collision/radar.component";
 
 export class Assemblage {
 	constructor(ecs, assets, scene) {
@@ -39,10 +40,11 @@ export class Assemblage {
 		entity.addComponent(new Joystick(entity));
 		entity.addComponent(new HUD(entity));
 		entity.addComponent(new Afterburner(entity));
-		entity.addComponent(new Collider(entity));
-		entity.addComponent(new RadarTarget(entity, new THREE.Vector3(1000, 1000, 1000)));
 		entity.addComponent(new View(entity, [OrbitView, CockpitView, HudView]));
-		//entity.addComponent(new Test(entity));
+
+		entity.addComponent(new Collider(entity));
+		entity.addComponent(new RadarTarget(entity));
+		//entity.addComponent(new Radar(entity));
 
 		let hardpoints = entity.addComponent(new FalconHardpoints(entity));
 		hardpoints.h1.add(this.amraam(hardpoints.h1.transform));
@@ -72,7 +74,7 @@ export class Assemblage {
 		entity.addComponent(new View(entity, [OrbitView]));
 		entity.addComponent(new Collider(entity, new THREE.Vector3(10, 10, 10)));
 		entity.addComponent(new SamModel(entity, this.assets.gltf.sa6_launcher.asset));
-		entity.addComponent(new Collider(entity, new THREE.Vector3(100, 100, 100)));
+		entity.addComponent(new Radar(entity, new THREE.Vector3(100, 100, 100)));
 		this.ecs.addEntity(entity);
 		return entity;
 	}

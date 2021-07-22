@@ -1,5 +1,6 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
+import { BoxGeometry } from "three";
 
 export class Collider extends ECS.Component {
 	constructor(entity, size = new THREE.Vector3(1, 1, 1)) {
@@ -11,6 +12,12 @@ export class Collider extends ECS.Component {
 
 		this.keys = [];
 		this.lastHash = "";
+
+		const cube = new THREE.Mesh(
+			new THREE.BoxGeometry(size.x, size.y, size.z),
+			new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
+		);
+		entity.transform.add(cube);
 	}
 
 	get min() {
@@ -31,11 +38,5 @@ export class Collider extends ECS.Component {
 		let y = Math.floor(c.y / 100);
 		let z = Math.floor(c.z / 100);
 		return `${x},${y},${z}`;
-	}
-}
-
-export class RadarTarget extends Collider {
-	constructor(entity, size = new THREE.Vector3(1, 1, 1)) {
-		super(entity, size);
 	}
 }

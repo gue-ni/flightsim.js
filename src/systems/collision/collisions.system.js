@@ -1,9 +1,9 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 
-import { Collider, RadarTarget } from "../../components/collider.component";
+import { Collider } from "../../components/collision/collider.component";
 
-export class Colliders {
+export class HashGrid {
 	constructor(size) {
 		this.size = size || 100;
 		this.space = new Map();
@@ -32,7 +32,7 @@ export class Colliders {
 		}
 	}
 
-	hash(vec) {
+	_hash(vec) {
 		const h = new THREE.Vector3();
 		h.x = Math.floor(vec.x / this.size);
 		h.y = Math.floor(vec.y / this.size);
@@ -40,7 +40,7 @@ export class Colliders {
 		return h;
 	}
 
-	remove(collider) {
+	_remove(collider) {
 		for (let key of collider.keys) {
 			if (this.space.has(key)) {
 				let list = this.space.get(key);
@@ -54,9 +54,9 @@ export class Colliders {
 		}
 	}
 
-	insert(collider) {
-		let min = this.hash(collider.min);
-		let max = this.hash(collider.max);
+	_insert(collider) {
+		let min = this._hash(collider.min);
+		let max = this._hash(collider.max);
 
 		let keys = [];
 
@@ -82,9 +82,22 @@ export class Colliders {
 		return keys;
 	}
 
+	updateCollider(collider) {
+		const offset = new THREE.Vector3().subVectors(collider.entity.worldPosition, collider.center);
+		collider.geometry.translate(offset);
+
+		const hash = collider.hash;
+
+		if (hash !== collider.lastHash) {
+			collider.lastHash = hash;
+			this._remove(collider);
+			this._insert(collider);
+		}
+	}
+
 	possible_collisions(aabb, type = Collider) {
-		let min = this.hash(aabb.min);
-		let max = this.hash(aabb.max);
+		let min = this._hash(aabb.min);
+		let max = this._hash(aabb.max);
 
 		let possible = new Set();
 
@@ -95,7 +108,13 @@ export class Colliders {
 
 					if (this.space.has(key)) {
 						for (let item of this.space.get(key)) {
-							if (item != aabb && item instanceof type) possible.add(item);
+							if (item != aabb) {
+								if (item instanceof type) {
+									possible.add(item);
+								} else {
+									console.log("wrong type, is ", item.constructor.name);
+								}
+							}
 						}
 					}
 				}
@@ -150,7 +169,7 @@ export class Colliders {
 	}
 
 	possible_point_collisions(point) {
-		let h = this.hash(point);
+		let h = this._hash(point);
 
 		let key = `${h.x},${h.y},${h.z}`;
 		if (this.space.has(key)) {
@@ -164,26 +183,17 @@ export class Colliders {
 export class CollisionSystem extends ECS.System {
 	constructor() {
 		super([Collider]);
-		this.colliders = new Colliders(100);
+		this.colliders = new HashGrid(100);
 	}
 
 	updateEntity(entity, dt, params) {
 		const collider = entity.getComponent(Collider);
 
-		const offset = new THREE.Vector3().subVectors(entity.worldPosition, collider.center);
-		collider.geometry.translate(offset);
-
-		const hash = collider.hash;
-
-		if (!hash == collider.lastHash) {
-			collider.lastHash = hash;
-			this.colliders.remove(collider);
-			this.colliders.insert(collider);
-		}
+		this.colliders.updateCollider(collider);
 
 		for (const possible of this.colliders.possible_collisions(collider, Collider)) {
 			if (this.colliders.collide(collider, possible)) {
-				console.log("collision");
+				console.log("collision", possible.entity.id, collider.entity.id);
 			}
 		}
 	}
