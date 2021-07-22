@@ -193,7 +193,7 @@ export class CollisionSystem extends ECS.System {
 
 		for (const possible of this.colliders.possible_collisions(collider, Collider)) {
 			if (this.colliders.collide(collider, possible)) {
-				console.log("collision", possible.entity.id, collider.entity.id);
+				console.log("collision between", possible.entity.id, collider.entity.id);
 			}
 		}
 	}

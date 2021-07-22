@@ -15,12 +15,10 @@ export class RadarSystem extends ECS.System {
 		const collider = entity.getComponent(Radar);
 
 		colliders.updateCollider(collider);
-		//console.log(colliders.space);
 
 		for (const possible of colliders.possible_collisions(collider, RadarTarget)) {
-			//console.log("possible");
 			if (colliders.collide(collider, possible)) {
-				console.log("Radar detected", possible.entity.id);
+				console.log("radar detected", possible.entity.id);
 			}
 		}
 	}
