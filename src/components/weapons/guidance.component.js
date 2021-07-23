@@ -6,6 +6,5 @@ export class Guidance extends ECS.Component {
 		super(entity);
 		this._prey = target;
 		this._fov = THREE.MathUtils.degToRad(90);
-		console.log(this._prey);
 	}
 }

@@ -13,12 +13,12 @@ export class RadarSystem extends ECS.System {
 
 	updateEntity(entity, dt, params) {
 		const radar = entity.getComponent(Radar);
-		colliders.updateCollider(radar);
+		colliders.updateCollider(radar, dt);
 
 		radar.targets = [];
 
 		for (const possible of colliders.possible_collisions(radar, RadarTarget)) {
-			if (colliders.collide(radar, possible)) {
+			if (colliders.collide(radar, possible) && radar.timeToArm <= 0 && possible.timeToArm <= 0) {
 				//console.log("radar detected", possible.entity.id);
 				radar.targets.push(possible.entity);
 			}
@@ -33,6 +33,6 @@ export class RadarTargetSystem extends ECS.System {
 
 	updateEntity(entity, dt, params) {
 		const collider = entity.getComponent(RadarTarget);
-		colliders.updateCollider(collider);
+		colliders.updateCollider(collider, dt);
 	}
 }

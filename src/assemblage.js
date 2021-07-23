@@ -75,7 +75,7 @@ export class Assemblage {
 		entity.addComponent(new Collider(entity));
 		entity.addComponent(new SamControl(entity));
 		entity.addComponent(new SamModel(entity, this.assets.gltf.sa6_launcher.asset));
-		entity.addComponent(new Radar(entity, new THREE.Vector3(1000, 1000, 1000)));
+		entity.addComponent(new Radar(entity, new THREE.Vector3(2000, 1000, 2000)));
 		this.ecs.addEntity(entity);
 		return entity;
 	}

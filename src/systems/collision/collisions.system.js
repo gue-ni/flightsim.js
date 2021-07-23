@@ -82,9 +82,13 @@ export class HashGrid {
 		return keys;
 	}
 
-	updateCollider(collider) {
+	updateCollider(collider, dt) {
 		const offset = new THREE.Vector3().subVectors(collider.entity.worldPosition, collider.center);
 		collider.geometry.translate(offset);
+
+		if (collider.timeToArm > 0) {
+			collider.timeToArm -= dt;
+		}
 
 		const hash = collider.hash;
 
@@ -189,10 +193,10 @@ export class CollisionSystem extends ECS.System {
 	updateEntity(entity, dt, params) {
 		const collider = entity.getComponent(Collider);
 
-		this.colliders.updateCollider(collider);
+		this.colliders.updateCollider(collider, dt);
 
 		for (const possible of this.colliders.possible_collisions(collider, Collider)) {
-			if (this.colliders.collide(collider, possible)) {
+			if (this.colliders.collide(collider, possible) && collider.timeToArm <= 0 && possible.timeToArm <= 0) {
 				console.log("collision between", possible.entity.id, collider.entity.id);
 			}
 		}

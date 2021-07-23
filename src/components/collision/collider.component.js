@@ -12,6 +12,7 @@ export class Collider extends ECS.Component {
 
 		this.keys = [];
 		this.lastHash = "";
+		this.timeToArm = 2;
 
 		/*
 		entity.transform.add(

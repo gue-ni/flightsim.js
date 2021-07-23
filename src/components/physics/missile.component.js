@@ -21,7 +21,7 @@ export class Missile extends ODE {
 		this.mass = 40;
 		this.diameter = 0.18;
 		this.wingArea = 0.5;
-		this.thrust = 15000;
+		this.thrust = 5000;
 		this.burntime = 7;
 
 		this.rudder = 0;

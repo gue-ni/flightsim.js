@@ -45,7 +45,7 @@ export class SAMSystem extends ECS.System {
 
 			weapon.addComponent(new Missile(weapon, new THREE.Vector3()));
 			weapon.addComponent(new Velocity(weapon, new THREE.Vector3()));
-			weapon.addComponent(new Trail(weapon));
+			weapon.addComponent(new Trail(weapon, 0.5));
 			weapon.addComponent(new Guidance(weapon, radar.targets[0]));
 			weapon.addComponent(new Collider(weapon));
 			weapon.addComponent(new View(weapon, [OrbitView, HudView]));
