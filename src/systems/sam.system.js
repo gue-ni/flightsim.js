@@ -49,6 +49,7 @@ export class SAMSystem extends ECS.System {
 
 			const scene = entity.root;
 			const weapon = new ECS.Entity(scene);
+			weapon.lifetime = 15;
 			this.ecs.addEntity(weapon);
 
 			let wP = missile.getWorldPosition(new THREE.Vector3());
@@ -73,8 +74,6 @@ export class SAMSystem extends ECS.System {
 			control.sleep = 10;
 		}
 
-		if (control.sleep > 0) {
-			control.sleep -= dt;
-		}
+		if (control.sleep > 0) control.sleep -= dt;
 	}
 }

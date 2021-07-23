@@ -47,4 +47,11 @@ export class Trail extends ECS.Component {
 		let scene = this.entity.root;
 		scene.add(this.model);
 	}
+
+	destroy() {
+		this.material.dispose();
+		this.geometry1.dispose();
+		this.geometry2.dispose();
+		this.model.parent.remove(this.model);
+	}
 }
