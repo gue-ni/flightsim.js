@@ -42,15 +42,10 @@ export class FalconModelSystem extends ECS.System {
 
 export class SamModelSystem extends ECS.System {
 	constructor() {
-		super([SamModel, SamHardpoints]);
+		super([SamModel]);
 	}
 
 	updateEntity(entity, dt, params) {
 		let model = entity.getComponent(SamModel);
-		let hardpoints = entity.getComponent(SamHardpoints);
-
-		let weapon = hardpoints.h1.weapon;
-		//weapon.transform.rotation.set(0, -model.turret.rotation.y - Math.PI / 4, model.turret.rotation.y, "YZX");
-		weapon.transform.rotation.set(0, 0, model.turret.rotation.y, "YZX");
 	}
 }

@@ -129,7 +129,7 @@ function setup() {
 
 	let assemblage = new Assemblage(ecs, assets, scene);
 
-	assemblage.falcon(new THREE.Vector3(-1500, 300, 0), new THREE.Vector3(50, 0, 0));
+	assemblage.falcon(new THREE.Vector3(-1500, 300, 500), new THREE.Vector3(50, 0, 0));
 	assemblage.sam(terrain.placeAt(0, 0));
 }
 

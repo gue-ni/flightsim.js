@@ -11,7 +11,10 @@ import { SamControl } from "../components/sam.component";
 import { Velocity } from "../components/velocity.component";
 import { HudView, OrbitView, View } from "../components/view.component";
 import { Guidance } from "../components/weapons/guidance.component";
+import { azimuthDifference } from "../util/util";
 import { MissileSystem } from "./physics/missile.system";
+
+const vec = new THREE.Vector3();
 
 export class SAMSystem extends ECS.System {
 	constructor(ecs, assets) {
@@ -24,6 +27,18 @@ export class SAMSystem extends ECS.System {
 		let sam = entity.getComponent(SamModel);
 		let control = entity.getComponent(SamControl);
 		let radar = entity.getComponent(Radar);
+
+		if (radar.targets.length > 0) {
+			const target = radar.targets[0];
+			const A = vec.subVectors(target.position.clone(), entity.position.clone());
+			A.y = 0;
+			A.normalize();
+			const B = new THREE.Vector3(-1, 0, 0);
+			control.yaw = azimuthDifference(A, B);
+		}
+
+		sam.turret.rotation.set(0, control.yaw, 0);
+		sam.launcher.rotation.set(control.pitch, 0, 0);
 
 		const fireMissile = () => {
 			let missile = sam.missile;
@@ -39,7 +54,7 @@ export class SAMSystem extends ECS.System {
 			let wP = missile.getWorldPosition(new THREE.Vector3());
 			let wQ = missile.getWorldQuaternion(new THREE.Quaternion());
 			weapon.transform.position.copy(wP);
-			weapon.transform.rotation.set(0, sam.yaw + Math.PI, sam.pitch + Math.PI / 2);
+			weapon.transform.rotation.set(0, control.yaw + Math.PI, control.pitch + Math.PI / 2);
 
 			missile.parent.remove(missile);
 

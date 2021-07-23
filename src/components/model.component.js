@@ -93,8 +93,8 @@ export class SamModel extends SimpleModel {
 		this.yaw = Math.PI / 4;
 		this.pitch = -Math.PI / 4;
 
-		this.turret.rotation.set(0, this.yaw, 0);
-		this.launcher.rotation.set(this.pitch, 0, 0);
+		//this.turret.rotation.set(0, this.yaw, 0);
+		//this.launcher.rotation.set(this.pitch, 0, 0);
 	}
 
 	get missile() {
