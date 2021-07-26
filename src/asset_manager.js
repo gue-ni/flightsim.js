@@ -35,6 +35,12 @@ export class AssetManager {
 				amraam: {
 					url: "assets/objects/AIM-120.glb",
 				},
+				sidewinder: {
+					url: "assets/objects/AIM-9.glb",
+				},
+				harm: {
+					url: "assets/objects/AGM-88.glb",
+				},
 			},
 			textures: {
 				heightmap: {

@@ -63,7 +63,7 @@ export class SimpleModel extends ECS.Component {
 				mesh.castShadow = true;
 				//mesh.receiveShadow = true;
 				//mesh.material.side = THREE.FrontSide;
-				mesh.material.roughness = 1.0;
+				mesh.material.roughness = 5.0;
 				mesh.material.flatShading = true;
 			}
 		});

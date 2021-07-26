@@ -49,14 +49,12 @@ export class Assemblage {
 
 		let hardpoints = entity.addComponent(new FalconHardpoints(entity));
 		hardpoints.h1.add(this.amraam(hardpoints.h1.transform));
-		hardpoints.h2.add(this.amraam(hardpoints.h2.transform));
-		hardpoints.h3B.add(this.amraam(hardpoints.h2.transform));
-		hardpoints.h3A.add(this.amraam(hardpoints.h2.transform));
+		hardpoints.h2.add(this.sidewinder(hardpoints.h2.transform));
+		hardpoints.h3.add(this.harm(hardpoints.h2.transform));
 
-		hardpoints.h7B.add(this.amraam(hardpoints.h2.transform));
-		hardpoints.h7A.add(this.amraam(hardpoints.h2.transform));
+		hardpoints.h7.add(this.harm(hardpoints.h2.transform));
+		hardpoints.h8.add(this.sidewinder(hardpoints.h8.transform));
 		hardpoints.h9.add(this.amraam(hardpoints.h9.transform));
-		hardpoints.h8.add(this.amraam(hardpoints.h8.transform));
 
 		return entity;
 	}
@@ -64,6 +62,20 @@ export class Assemblage {
 	amraam(parent) {
 		const entity = new ECS.Entity(parent);
 		entity.addComponent(new SimpleModel(entity, this.assets.gltf.amraam.asset));
+		this.ecs.addEntity(entity);
+		return entity;
+	}
+
+	sidewinder(parent) {
+		const entity = new ECS.Entity(parent);
+		entity.addComponent(new SimpleModel(entity, this.assets.gltf.sidewinder.asset));
+		this.ecs.addEntity(entity);
+		return entity;
+	}
+
+	harm(parent) {
+		const entity = new ECS.Entity(parent);
+		entity.addComponent(new SimpleModel(entity, this.assets.gltf.harm.asset));
 		this.ecs.addEntity(entity);
 		return entity;
 	}

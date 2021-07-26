@@ -22,14 +22,16 @@ export class FalconHardpoints extends ECS.Component {
 		const y = -0.04;
 		const x = -0.25;
 
-		this.h1 = new Hardpoint(entity.transform, new THREE.Vector3(x - 0.05, 0, 0.535));
+		this.h1 = new Hardpoint(entity.transform, new THREE.Vector3(x - 0.015, 0, 0.535));
 		this.h2 = new Hardpoint(entity.transform, new THREE.Vector3(x, y, 0.42));
 		this.h3B = new Hardpoint(entity.transform, new THREE.Vector3(x, y, 0.34));
+		this.h3 = new Hardpoint(entity.transform, new THREE.Vector3(x, y, 0.325));
 		this.h3A = new Hardpoint(entity.transform, new THREE.Vector3(x, y, 0.31));
 		this.h7A = new Hardpoint(entity.transform, new THREE.Vector3(x, y, -0.31));
+		this.h7 = new Hardpoint(entity.transform, new THREE.Vector3(x, y, -0.325));
 		this.h7B = new Hardpoint(entity.transform, new THREE.Vector3(x, y, -0.34));
 		this.h8 = new Hardpoint(entity.transform, new THREE.Vector3(x, y, -0.42));
-		this.h9 = new Hardpoint(entity.transform, new THREE.Vector3(x - 0.05, 0, -0.535));
+		this.h9 = new Hardpoint(entity.transform, new THREE.Vector3(x - 0.015, 0, -0.535));
 	}
 }
 
