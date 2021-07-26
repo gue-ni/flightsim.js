@@ -38,9 +38,9 @@ export class Collider extends ECS.Component {
 
 	get hash() {
 		let c = this.center;
-		let x = Math.floor(c.x / 100);
-		let y = Math.floor(c.y / 100);
-		let z = Math.floor(c.z / 100);
+		let x = Math.floor(c.x / 1000);
+		let y = Math.floor(c.y / 1000);
+		let z = Math.floor(c.z / 1000);
 		return `${x},${y},${z}`;
 	}
 }

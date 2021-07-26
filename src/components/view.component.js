@@ -10,7 +10,7 @@ export class OrbitView extends State {
 		this.radius = 4;
 		this.phi = Math.PI / 2 - 0.25;
 
-		this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
+		this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 100000);
 
 		let vec = new THREE.Vector3().setFromSphericalCoords(this.radius, this.phi, this.theta);
 		let pos = this.entity.transform.getWorldPosition(new THREE.Vector3());
@@ -34,7 +34,7 @@ export class HudView extends State {
 	constructor(entity) {
 		super();
 		this.entity = entity;
-		this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
+		this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 100000);
 
 		this._default = new THREE.Euler(0, -Math.PI / 2, 0, "YZX");
 		this.camera.rotation.copy(this._default);
@@ -48,7 +48,7 @@ export class CockpitView extends State {
 		super();
 		this.entity = entity;
 
-		this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
+		this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 100000);
 		//this.camera.position.set(0.37, 0.085, 0);
 		this.camera.position.set(0.36, 0.085, 0);
 

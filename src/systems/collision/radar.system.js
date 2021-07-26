@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { Radar, RadarTarget } from "../../components/collision/radar.component";
 import { HashGrid } from "./collisions.system";
 
-const colliders = new HashGrid(100);
+const colliders = new HashGrid(1000);
 
 export class RadarSystem extends ECS.System {
 	constructor() {

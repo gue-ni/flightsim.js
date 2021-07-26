@@ -65,7 +65,7 @@ function setup_sky() {
 	skyUniforms["mieDirectionalG"].value = 0.1;
 
 	const parameters = {
-		elevation: 2,
+		elevation: 5,
 		azimuth: 180,
 	};
 
@@ -100,7 +100,7 @@ function setup() {
 	setup_sky();
 	sun = setup_sun();
 
-	terrain = new Terrain(scene, { heightmap: assets.textures.heightmap.asset.image });
+	terrain = new Terrain(scene, { heightmap: assets.textures.terrain.asset.image });
 
 	ecs = new ECS.ECS();
 	ecs.addSystem(new InputSystem());
@@ -129,8 +129,13 @@ function setup() {
 
 	let assemblage = new Assemblage(ecs, assets, scene);
 
-	assemblage.falcon(new THREE.Vector3(-1500, 300, 500), new THREE.Vector3(50, 0, 0));
-	assemblage.sam(terrain.placeAt(0, 0));
+	assemblage.falcon(new THREE.Vector3(-1500, 500, 500), new THREE.Vector3(50, 0, 0));
+
+	//assemblage.sam(terrain.placeAt(10, 10));
+	assemblage.sam(terrain.placeAt(100, 501));
+	assemblage.sam(terrain.placeAt(-50, -50));
+	assemblage.sam(terrain.placeAt(2050, -500));
+	assemblage.sam(terrain.placeAt(-1050, -350));
 }
 
 function gameLoop(now) {

@@ -85,7 +85,7 @@ export class Chunk {
 		for (let i = 0; i < positions.count; i++) {
 			const x = positions.getX(i) + offset.x;
 			const y = -positions.getY(i) + offset.y;
-			let h = heightmap.get(x, y) * 3;
+			let h = heightmap.get(x, y);
 			positions.setZ(i, h);
 		}
 
@@ -117,11 +117,15 @@ export class Chunk {
 
 		let rock = new THREE.Color(0x7d745d);
 		let voliage = new THREE.Color(0x848659);
+		let snow = new THREE.Color(0xe5f0f8);
 
 		for (let i = 0; i < count; i++) {
 			let h = positions.getZ(i);
 
-			if (h > 100) {
+			if (h > 350) {
+				colors.setXYZ(i, snow.r, snow.g, snow.b);
+				//colors.setXYZ(i, rock.r, rock.g, rock.b);
+			} else if (h > 150) {
 				colors.setXYZ(i, rock.r, rock.g, rock.b);
 			} else {
 				colors.setXYZ(i, voliage.r, voliage.g, voliage.b);

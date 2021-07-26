@@ -18,10 +18,10 @@ export class Missile extends ODE {
 		this.q[3] = position.z * 10;
 		this.q[5] = position.y * 10;
 
-		this.mass = 40;
+		this.mass = 50;
 		this.diameter = 0.18;
 		this.wingArea = 0.5;
-		this.thrust = 10000;
+		this.thrust = 15000;
 		this.burntime = 7;
 
 		this.rudder = 0;

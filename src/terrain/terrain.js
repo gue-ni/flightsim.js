@@ -12,6 +12,8 @@ export class Terrain {
 		//this._heightmap = new FixedHeightMap();
 		this._heightmap = new ImageHeightMap(params.heightmap);
 		this._chunks = {};
+
+		this._build(new THREE.Vector3());
 	}
 
 	_build(pos) {
@@ -33,14 +35,12 @@ export class Terrain {
 
 			newChunks[key] = {
 				chunk: new Chunk(this.root, child.center, child.size, this._heightmap, key),
-				//buildings: new TerrainObjects(this.root, child.center, child.size, this._heightmap, key),
 			};
 		}
 
 		for (const key in this._chunks) {
 			this._count--;
 			this._chunks[key].chunk.destroy();
-			//if (this._chunks[key].buildings) this._chunks[key].buildings.destroy();
 		}
 
 		this._chunks = newChunks;
@@ -63,6 +63,7 @@ export class Terrain {
 	}
 
 	placeAt(x, z) {
-		return new THREE.Vector3(x, this._heightmap.get(x, z), z);
+		let h = new THREE.Vector3(x, this._heightmap.get(x, z), z);
+		return h;
 	}
 }

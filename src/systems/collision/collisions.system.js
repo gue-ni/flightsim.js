@@ -5,7 +5,7 @@ import { Collider } from "../../components/collision/collider.component";
 
 export class HashGrid {
 	constructor(size) {
-		this.size = size || 100;
+		this.size = size;
 		this.space = new Map();
 	}
 
@@ -115,8 +115,6 @@ export class HashGrid {
 							if (item != aabb) {
 								if (item instanceof type) {
 									possible.add(item);
-								} else {
-									console.log("wrong type, is ", item.constructor.name);
 								}
 							}
 						}
@@ -187,7 +185,7 @@ export class HashGrid {
 export class CollisionSystem extends ECS.System {
 	constructor() {
 		super([Collider]);
-		this.colliders = new HashGrid(100);
+		this.colliders = new HashGrid(1000);
 	}
 
 	updateEntity(entity, dt, params) {

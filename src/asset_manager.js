@@ -40,6 +40,9 @@ export class AssetManager {
 				heightmap: {
 					url: "assets/textures/heightmap3.png",
 				},
+				terrain: {
+					url: "assets/textures/terrain.png",
+				},
 				hexagon: {
 					url: "assets/textures/hexagon.png",
 				},
