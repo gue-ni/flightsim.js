@@ -86,12 +86,41 @@ function setup() {
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.BasicShadowMap;
 
-	window.addEventListener("resize", () => {
+	function resize() {
 		renderer.setSize(window.innerWidth, window.innerHeight);
+	}
+
+	function fullscreen() {
+		if (!document.fullscreenElement) {
+			document.documentElement.requestFullscreen();
+			resize();
+		}
+	}
+
+	window.addEventListener("resize", () => {
+		resize();
 	});
 
+	/*
+	document.body.addEventListener(
+		"click",
+		() => {
+			fullscreen();
+		},
+		false
+	);
+
+	document.addEventListener(
+		"touchstart",
+		() => {
+			fullscreen();
+		},
+		false
+	);
+	*/
+
 	stats = new Stats();
-	//document.body.appendChild(stats.dom);
+	document.body.appendChild(stats.dom);
 
 	scene = new THREE.Scene();
 	const skyColor = 0x6c5959;
@@ -130,6 +159,7 @@ function setup() {
 	let assemblage = new Assemblage(ecs, assets, scene);
 
 	assemblage.falcon(new THREE.Vector3(-1500, 500, 500), new THREE.Vector3(50, 0, 0));
+
 	/*
 	assemblage.sam(terrain.placeAt(100, 501));
 	assemblage.sam(terrain.placeAt(-50, -50));

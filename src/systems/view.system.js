@@ -1,7 +1,7 @@
 import * as ECS from "lofi-ecs";
 import * as THREE from "three";
 import { Input } from "../components/input.component";
-import { View, OrbitView, CockpitView, HudView } from "../components/view.component";
+import { View, OrbitView, CockpitView, HudView, ThirdPersonView } from "../components/view.component";
 
 export class ViewSystem extends ECS.System {
 	constructor() {
@@ -43,21 +43,26 @@ export class ViewSystem extends ECS.System {
 		}
 
 		input.poll("keydown", (event) => {
+			const viewcomponent = entity.getComponent(View);
 			switch (event.code) {
 				case "Digit1":
 					this.getNext(params.entities);
 					break;
 
 				case "Digit2":
-					entity.getComponent(View).views.setState(CockpitView);
+					viewcomponent?.views.setState(CockpitView);
 					break;
 
 				case "Digit3":
-					entity.getComponent(View).views.setState(OrbitView);
+					viewcomponent?.views.setState(OrbitView);
 					break;
 
 				case "Digit4":
-					entity.getComponent(View).views.setState(HudView);
+					viewcomponent?.views.setState(HudView);
+					break;
+
+				case "Digit5":
+					viewcomponent?.views.setState(ThirdPersonView);
 					break;
 			}
 		});

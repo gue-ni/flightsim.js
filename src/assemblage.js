@@ -13,9 +13,9 @@ import { Box, FalconModel, SamModel, SimpleModel } from "./components/model.comp
 import { Airplane } from "./components/physics/airplane.component";
 import { Missile } from "./components/physics/missile.component";
 import { SpringODE } from "./components/physics/spring_ode.component";
-import { TestComponent as Test } from "./components/test.component";
+import { TestComponent as Test, TestComponent } from "./components/test.component";
 import { Velocity } from "./components/velocity.component";
-import { CockpitView, HudView, OrbitView, View as View } from "./components/view.component";
+import { CockpitView, HudView, OrbitView, ThirdPersonView, View as View } from "./components/view.component";
 import { Afterburner } from "./components/particles/afterburner.component";
 import { Trail } from "./components/particles/trail.component";
 import { Radar, RadarTarget } from "./components/collision/radar.component";
@@ -41,7 +41,8 @@ export class Assemblage {
 		entity.addComponent(new Joystick(entity));
 		entity.addComponent(new HUD(entity));
 		entity.addComponent(new Afterburner(entity));
-		entity.addComponent(new View(entity, [OrbitView, CockpitView, HudView]));
+		entity.addComponent(new View(entity, [ThirdPersonView, CockpitView, HudView, OrbitView]));
+		entity.addComponent(new TestComponent(entity));
 
 		entity.addComponent(new Collider(entity));
 		entity.addComponent(new RadarTarget(entity));

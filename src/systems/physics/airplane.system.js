@@ -140,6 +140,8 @@ export class AirplaneSystem extends ECS.System {
 		let pitchrate = worldRotation.z - this.previous_pitch;
 		this.previous_pitch = worldRotation.z;
 
+		console.log(worldRotation.z);
+
 		let degRoll = ode.roll % (Math.PI * 2);
 
 		const epsilon = 0.1;
