@@ -120,7 +120,7 @@ function setup() {
 	*/
 
 	stats = new Stats();
-	document.body.appendChild(stats.dom);
+	//document.body.appendChild(stats.dom);
 
 	scene = new THREE.Scene();
 	const skyColor = 0x6c5959;

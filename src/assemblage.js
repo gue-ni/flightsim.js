@@ -42,7 +42,7 @@ export class Assemblage {
 		entity.addComponent(new HUD(entity));
 		entity.addComponent(new Afterburner(entity));
 		entity.addComponent(new View(entity, [ThirdPersonView, CockpitView, HudView, OrbitView]));
-		entity.addComponent(new TestComponent(entity));
+		//entity.addComponent(new TestComponent(entity));
 
 		entity.addComponent(new Collider(entity));
 		entity.addComponent(new RadarTarget(entity));
